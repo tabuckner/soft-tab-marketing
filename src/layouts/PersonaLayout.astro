@@ -59,6 +59,18 @@ const {
   faqs,
   cta,
 } = Astro.props;
+
+const faqSchema = faqs && faqs.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    }
+  : null;
 ---
 
 <BaseLayout title={seo.title} description={seo.description}>
@@ -178,6 +190,10 @@ const {
       )}
     </Container>
   </Section>
+
+  {faqSchema && (
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  )}
 
   <!-- Section 7: Final CTA -->
   <CTABlock

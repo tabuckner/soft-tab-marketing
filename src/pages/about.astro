@@ -34,6 +34,15 @@ const faqs = [
   { question: 'How do you handle communication and updates?', answer: "We adapt to your preferences. Some clients want weekly standups. Others prefer async updates via Slack or email. We agree on a communication cadence during kickoff and adjust as needed." },
   { question: 'What technologies do you work with?', answer: 'Our deepest expertise is in TypeScript, Angular, React, Node.js, and NestJS, but we work across a wide range of stacks including Go, Java, Python, and more. See our <a href="/services#technologies">full technology list</a>.' },
 ];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 ---
 
 <BaseLayout
@@ -173,6 +182,8 @@ const faqs = [
       <FAQAccordion items={faqs} />
     </Container>
   </Section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Final CTA -->
   <CTABlock

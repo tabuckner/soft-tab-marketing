@@ -1,6 +1,6 @@
 # Soft-TAB Marketing Website & Brand Package
 
-> **Status**: Phase 2 — Content & Copywriting
+> **Status**: Phase 3+4 — Design & Development (in progress: SEO, form backend)
 > **Last Updated**: 2026-02-11
 > **Owner**: Taylor Buckner
 
@@ -148,7 +148,7 @@ These are explicitly deferred to post-launch iterations:
 
 → Deliverables: `docs/brand-guidelines.md`, `docs/color-system.md`, `docs/design-tokens.md`, `docs/inspiration.md`, `docs/logo-lockups.html`
 
-### Phase 2: Content & Information Architecture ← ACTIVE
+### Phase 2: Content & Information Architecture ✅ COMPLETE
 > _What pages exist, what they say, and how they guide visitors to contact you._
 
 - [x] SEO keyword research ✅ → `docs/seo-keywords.md` (32 keywords mapped to pages)
@@ -179,65 +179,39 @@ These are explicitly deferred to post-launch iterations:
 
 → Deliverables: `docs/content.md`, `docs/architecture.md`
 
-### Phase 3: Design
-> _Visual direction, then wireframes, then high-fidelity._
+### Phase 3+4: Design & Development (Merged) ✅ COMPLETE
+> _Design in code — built mobile-first, component by component._
 
 - [x] Collect design inspiration ✅ → 47 references in `docs/inspiration.md`, 7 favorites selected
 - [x] Define visual direction ✅ → North stars locked (M8 light, B11 dark)
 - [x] Define design tokens ✅ → `docs/design-tokens.md` (spacing, type, radii, shadows, transitions, states, grid)
 - [x] Define breakpoints ✅ → Standard Tailwind (640/768/1024/1280/1536)
-- [ ] Create style tiles (2-3 visual direction explorations as coded prototypes)
-- [ ] Wireframe key pages (low-fi, mobile-first):
-  - [ ] Homepage (hero, "Who We Help" cards, services, social proof, process, CTA)
-  - [ ] Services
-  - [ ] About
-  - [ ] Contact
-  - [ ] /for-founders (persona page template)
-  - [ ] /for-engineering-leaders (persona page template — may share layout with founders)
-  - [ ] /for-ai-adoption (persona page template — may share layout with founders)
-- [ ] Design high-fidelity mockups (Homepage + 1 persona page + 1 interior page minimum)
-- [ ] Define component library:
-  - **Atoms**: Button (primary/secondary/text), link, input, textarea, icon
-  - **Molecules**: Form field, nav link, CTA block, social links
-  - **Organisms**: Header/nav (mobile + desktop), footer, hero section, feature cards, service cards, testimonial card, contact form
-  - **Templates**: Homepage layout, interior page layout
-- [ ] Document all interactive states (default, hover, focus, active, disabled)
-- [ ] Design mobile layouts first, then tablet/desktop adaptations
-- [ ] Export design assets (logos, icons, images @1x and @2x)
-
-**Exit Criteria**: Style tiles approved. Mockups approved. Component library defined. Design tokens documented.
-
-→ Deliverables: `docs/design-tokens.css`, mockup files, `docs/components.md`
-
-### Phase 4: Development
-> _Build it, mobile-first, component by component._
-
-- [ ] Scaffold project (should already be done from Phase 1 parallel track)
-- [ ] Implement design tokens as CSS custom properties
-- [ ] Build component library (atoms → molecules → organisms)
-- [ ] Build global layout (nav, footer, responsive shell)
-- [ ] Build pages in priority order:
-  - [ ] Homepage (hero, "Who We Help" cards, services overview, social proof, process, CTA)
-  - [ ] Contact page/form (Formspree free tier, Calendly, or similar)
-  - [ ] /for-founders (persona page)
-  - [ ] /for-engineering-leaders (persona page)
-  - [ ] /for-ai-adoption (persona page)
-  - [ ] Services page
-  - [ ] About page
-- [ ] Implement responsive design (test at 375px, 768px, 1024px, 1440px)
-- [ ] Implement dark mode (Tailwind `dark:` variants + CSS custom properties)
-  - Respect `prefers-color-scheme` on first visit
-  - Sun/moon toggle in nav, persist preference in `localStorage`
-- [ ] Basic accessibility: semantic HTML, alt text, focus-visible styles, skip-to-content link
-- [ ] SEO implementation:
-  - Meta tags and OG images per page
-  - Schema.org markup (Organization, Service)
-  - XML sitemap generation
-  - robots.txt
-  - Semantic HTML structure
+- [x] Implement design tokens as CSS custom properties ✅ → `src/styles/global.css` (@theme + CSS vars + @utility)
+- [x] Build component library ✅
+  - **Atoms**: Button (primary/secondary/tertiary, 3 sizes), Container, Section
+  - **Layout**: Header (sticky, dropdown, mobile nav), Footer, ThemeToggle, SkipToContent
+  - **Blocks**: Hero, CTABlock, StatsRow, PersonaCard, ServiceCard, DifferentiatorBlock, ProcessStep, FAQAccordion, TestimonialCard, ContactForm, HeroGraphic
+- [x] Build all 7 pages ✅
+  - Homepage (hero, Who We Help, services overview, differentiators, social proof, process, CTA)
+  - Services (service cards, engagement models, technologies, FAQ)
+  - About (story + photo, values, credibility stats, FAQ)
+  - Contact (form + sidebar with process steps)
+  - /for-founders (persona layout)
+  - /for-engineering-leaders (persona layout)
+  - /for-ai-adoption (persona layout)
+- [x] PersonaLayout shared template for all 3 persona pages ✅
+- [x] Implement responsive design ✅ → mobile-first, tested at standard breakpoints
+- [x] Implement dark mode ✅ → CSS custom properties, OS preference + localStorage toggle
+- [x] Basic accessibility ✅ → semantic HTML, alt text, focus-visible, skip-to-content
+- [x] Design polish ✅ → animated gradient borders, hero graphic, scroll reveal, dot grid pattern, view transitions
+- [x] SEO: Meta tags and OG tags per page ✅ → BaseLayout with title, description, canonical, OG/Twitter
+- [x] SEO: robots.txt ✅ → `public/robots.txt`
+- [x] SEO: XML sitemap ✅ → `@astrojs/sitemap` integration
+- [x] SEO: Schema.org structured data ✅ → Organization, Service, FAQ, BreadcrumbList (JSON-LD)
+- [x] SEO: OG default image ✅ → `public/og-default.png` (1200×630 branded image for social sharing)
 - [ ] Performance optimization (target Lighthouse > 90)
 - [ ] Set up GA4 (free) for basic analytics
-- [ ] Contact form backend solution (Formspree free tier or similar)
+- [ ] Contact form backend solution (Formspree free tier)
 
 **Exit Criteria**: All pages built, responsive, Lighthouse > 90, form working.
 

@@ -40,6 +40,15 @@ const faqs = [
   { question: 'What if AI-generated code is low quality?', answer: "AI is a tool, not a replacement for engineering judgment. We use AI to accelerate the repetitive parts of development while our senior engineers make every architectural and quality decision. Every output is reviewed, tested, and validated." },
   { question: 'Do you use AI to write all the code?', answer: 'No. AI assists with drafting, scaffolding, testing, and documentation. Senior engineers design the architecture, make technology decisions, review all output, and own the quality of the final product.' },
 ];
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+  })),
+};
 ---
 
 <BaseLayout
@@ -190,6 +199,8 @@ const faqs = [
       </div>
     </Container>
   </Section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Final CTA -->
   <CTABlock

@@ -21,6 +21,49 @@ const {
 
 const siteUrl = 'https://soft-tab.com';
 const canonicalUrl = canonical ? `${siteUrl}${canonical}` : `${siteUrl}${Astro.url.pathname}`;
+
+// Breadcrumb structured data
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+const breadcrumbItems = [
+  { name: 'Home', url: siteUrl },
+  ...pathSegments.map((segment, i) => {
+    const url = `${siteUrl}/${pathSegments.slice(0, i + 1).join('/')}`;
+    const name = segment
+      .replace(/^for-/, '')
+      .split('-')
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+    return { name, url };
+  }),
+];
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbItems.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    item: item.url,
+  })),
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Soft-TAB',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  description: 'AI-augmented software development consultancy providing fractional engineering, custom software development, and CTO advisory services.',
+  founder: { '@type': 'Person', name: 'Taylor Buckner' },
+  areaServed: 'US',
+  serviceType: ['Software Development', 'Team Augmentation', 'Fractional CTO Advisory', 'AI Training'],
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    url: `${siteUrl}/contact`,
+  },
+};
 ---
 
 <!doctype html>
@@ -52,6 +95,10 @@ const canonicalUrl = canonical ? `${siteUrl}${canonical}` : `${siteUrl}${Astro.u
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
 
     <ViewTransitions />
 
