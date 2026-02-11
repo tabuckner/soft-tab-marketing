@@ -9,6 +9,8 @@ interface Props {
   primaryCTA?: { label: string; href: string };
   secondaryCTA?: { label: string; href: string };
   centered?: boolean;
+  /** Pass true to enable the split layout with a slot for a graphic on the right */
+  hasGraphic?: boolean;
 }
 
 const {
@@ -18,7 +20,10 @@ const {
   primaryCTA,
   secondaryCTA,
   centered = true,
+  hasGraphic = false,
 } = Astro.props;
+
+const isSplit = hasGraphic && !centered;
 ---
 
 <section class="relative overflow-hidden py-24 md:py-32 lg:py-40 xl:py-48 bg-gradient-surface">
@@ -28,35 +33,51 @@ const {
   <div class="pointer-events-none absolute -bottom-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-accent-500/[0.05] blur-3xl" aria-hidden="true"></div>
 
   <Container>
-    <div class:list={['relative max-w-3xl', centered && 'mx-auto text-center']}>
-      {tagline && (
-        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-6">
-          {tagline}
-        </p>
-      )}
+    <div class:list={[
+      'relative',
+      isSplit
+        ? 'grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center'
+        : 'max-w-3xl',
+      centered && !isSplit && 'mx-auto text-center',
+    ]}>
+      <!-- Text content -->
+      <div>
+        {tagline && (
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-6">
+            {tagline}
+          </p>
+        )}
 
-      <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary leading-[1.08] tracking-tight">
-        {headline}
-      </h1>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary leading-[1.08] tracking-tight">
+          {headline}
+        </h1>
 
-      {subheadline && (
-        <p class="mt-8 text-lg md:text-xl text-secondary max-w-2xl leading-relaxed" class:list={[centered && 'mx-auto']}>
-          {subheadline}
-        </p>
-      )}
+        {subheadline && (
+          <p class:list={['mt-8 text-lg md:text-xl text-secondary max-w-2xl leading-relaxed', centered && !isSplit && 'mx-auto']}>
+            {subheadline}
+          </p>
+        )}
 
-      {(primaryCTA || secondaryCTA) && (
-        <div class="mt-10 flex flex-col sm:flex-row gap-4" class:list={[centered && 'justify-center']}>
-          {primaryCTA && (
-            <Button href={primaryCTA.href} variant="primary" size="lg">
-              {primaryCTA.label}
-            </Button>
-          )}
-          {secondaryCTA && (
-            <Button href={secondaryCTA.href} variant="secondary" size="lg">
-              {secondaryCTA.label}
-            </Button>
-          )}
+        {(primaryCTA || secondaryCTA) && (
+          <div class:list={['mt-10 flex flex-col sm:flex-row gap-4', centered && !isSplit && 'justify-center']}>
+            {primaryCTA && (
+              <Button href={primaryCTA.href} variant="primary" size="lg">
+                {primaryCTA.label}
+              </Button>
+            )}
+            {secondaryCTA && (
+              <Button href={secondaryCTA.href} variant="secondary" size="lg">
+                {secondaryCTA.label}
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
+
+      <!-- Graphic slot (only renders in split mode) -->
+      {isSplit && (
+        <div class="hidden lg:block">
+          <slot />
         </div>
       )}
     </div>

@@ -3,9 +3,11 @@ interface Props {
   id?: string;
   class?: string;
   background?: 'default' | 'subtle' | 'gradient' | 'dark';
+  /** Show a subtle dot grid background pattern */
+  pattern?: boolean;
 }
 
-const { id, class: className = '', background = 'default' } = Astro.props;
+const { id, class: className = '', background = 'default', pattern = false } = Astro.props;
 
 const bgClasses: Record<string, string> = {
   default: '',
@@ -15,6 +17,11 @@ const bgClasses: Record<string, string> = {
 };
 ---
 
-<section id={id} class:list={['py-20 md:py-28 lg:py-32', bgClasses[background], className]}>
-  <slot />
+<section id={id} class:list={['relative py-20 md:py-28 lg:py-32', bgClasses[background], className]}>
+  {pattern && (
+    <div class="absolute inset-0 bg-dot-grid opacity-[0.6] pointer-events-none" style="mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%); -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);" aria-hidden="true"></div>
+  )}
+  <div class:list={[pattern && 'relative']}>
+    <slot />
+  </div>
 </section>

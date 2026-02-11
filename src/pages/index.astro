@@ -11,6 +11,7 @@ import TestimonialCard from '../components/blocks/TestimonialCard.astro';
 import ProcessStep from '../components/blocks/ProcessStep.astro';
 import CTABlock from '../components/blocks/CTABlock.astro';
 import Button from '../components/ui/Button.astro';
+import HeroGraphic from '../components/blocks/HeroGraphic.astro';
 ---
 
 <BaseLayout
@@ -24,7 +25,11 @@ import Button from '../components/ui/Button.astro';
     subheadline="We're the engineering partner that founders and CTOs call when they need to move fast without cutting corners. Senior expertise. AI-augmented delivery. Real outcomes."
     primaryCTA={{ label: 'Schedule a Discovery Call', href: '/contact' }}
     secondaryCTA={{ label: 'See How We Work', href: '#how-we-work' }}
-  />
+    centered={false}
+    hasGraphic={true}
+  >
+    <HeroGraphic />
+  </Hero>
 
   <!-- Section 2: Who We Help -->
   <Section>
@@ -56,11 +61,6 @@ import Button from '../components/ui/Button.astro';
       </div>
     </Container>
   </Section>
-
-  <!-- Decorative divider -->
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent"></div>
-  </div>
 
   <!-- Section 3: Services Overview -->
   <Section>
@@ -102,7 +102,7 @@ import Button from '../components/ui/Button.astro';
   </Section>
 
   <!-- Section 4: The Soft-TAB Difference -->
-  <Section background="subtle">
+  <Section background="subtle" pattern>
     <Container>
       <div class="reveal text-center max-w-2xl mx-auto mb-16">
         <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-4">The Soft-TAB Difference</p>

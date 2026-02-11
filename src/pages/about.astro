@@ -48,18 +48,43 @@ const faqs = [
 
   <!-- Our Story -->
   <Section>
-    <Container narrow>
-      <h2 class="reveal text-3xl md:text-4xl font-semibold text-primary mb-10">Our story</h2>
-      <div class="reveal space-y-8 text-lg text-secondary leading-relaxed" style="transition-delay: 120ms;">
-        <p>
-          Soft-TAB was founded by Taylor Buckner, a software engineer who spent years building products across startups, growth-stage companies, and enterprise teams. The pattern was always the same: organizations needed senior talent that could ship fast, think architecturally, and own outcomes. Not just fill a seat.
-        </p>
-        <p>
-          Soft-TAB exists to be that partner. We're a consultancy built around a simple idea: experienced engineers, augmented by AI, can deliver what would normally require a much larger and more expensive team. We don't sell hours. We sell outcomes.
-        </p>
-        <p>
-          We keep our teams lean and focused. Every engagement is led by senior engineers who own the architecture, the code, and the outcome. No layers of account managers. No handoffs between strangers. Just a consistent team that knows your project inside and out.
-        </p>
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <!-- Photo -->
+        <div class="reveal lg:col-span-4">
+          <div class="relative">
+            <div class="aspect-[4/5] rounded-lg overflow-hidden bg-surface-subtle border border-default">
+              <img
+                src="/taylor-headshot.jpg"
+                alt="Taylor Buckner, founder of Soft-TAB"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <!-- Decorative gradient accent behind photo -->
+            <div class="absolute -bottom-3 -right-3 -z-10 w-full h-full rounded-lg bg-gradient-brand opacity-15" aria-hidden="true"></div>
+          </div>
+          <div class="mt-6 text-center lg:text-left">
+            <p class="text-lg font-semibold text-primary">Taylor Buckner</p>
+            <p class="text-sm text-secondary">Founder & Principal Engineer</p>
+          </div>
+        </div>
+
+        <!-- Bio text -->
+        <div class="lg:col-span-8">
+          <h2 class="reveal text-3xl md:text-4xl font-semibold text-primary mb-10">Our story</h2>
+          <div class="reveal space-y-8 text-lg text-secondary leading-relaxed" style="transition-delay: 120ms;">
+            <p>
+              Soft-TAB was founded by Taylor Buckner, a software engineer who spent years building products across startups, growth-stage companies, and enterprise teams. The pattern was always the same: organizations needed senior talent that could ship fast, think architecturally, and own outcomes. Not just fill a seat.
+            </p>
+            <p>
+              Soft-TAB exists to be that partner. We're a consultancy built around a simple idea: experienced engineers, augmented by AI, can deliver what would normally require a much larger and more expensive team. We don't sell hours. We sell outcomes.
+            </p>
+            <p>
+              We keep our teams lean and focused. Every engagement is led by senior engineers who own the architecture, the code, and the outcome. No layers of account managers. No handoffs between strangers. Just a consistent team that knows your project inside and out.
+            </p>
+          </div>
+        </div>
       </div>
     </Container>
   </Section>
@@ -88,7 +113,7 @@ const faqs = [
       </div>
       <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
         {values.map((value) => (
-          <div class="rounded-2xl bg-surface-card border border-default p-8 md:p-10">
+          <div class="rounded-lg bg-surface-card border border-default p-8 md:p-10">
             <h3 class="text-xl font-semibold text-primary">{value.headline}</h3>
             <p class="mt-4 text-secondary leading-relaxed">{value.body}</p>
           </div>

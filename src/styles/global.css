@@ -236,6 +236,57 @@
   transform: translateY(0);
 }
 
+@utility bg-dot-grid {
+  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Animated gradient border — draws on clockwise via conic-gradient + mask-composite */
+@property --draw-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.card-border-draw {
+  position: relative;
+  transition: border-color var(--duration-short) var(--ease-standard);
+}
+
+.card-border-draw::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-primary-500) 0deg,
+    var(--color-accent-500) calc(var(--draw-angle) * 0.5),
+    var(--color-primary-500) var(--draw-angle),
+    transparent calc(var(--draw-angle) + 0.1deg)
+  );
+  --draw-angle: 0deg;
+  transition: --draw-angle 0.6s var(--ease-decelerate);
+  pointer-events: none;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+}
+
+.card-border-draw:hover::after {
+  --draw-angle: 360deg;
+}
+
+.card-border-draw:hover {
+  border-color: transparent;
+}
+
 /* ============================================================
    BASE STYLES — inside @layer so Tailwind utilities can override
    ============================================================ */

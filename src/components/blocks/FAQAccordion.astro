@@ -13,7 +13,7 @@ const { items } = Astro.props;
 
 <div class="faq-accordion space-y-3">
   {items.map((item) => (
-    <details class="group rounded-xl border border-default bg-surface-card overflow-hidden">
+    <details class="group rounded-lg border border-default bg-surface-card overflow-hidden">
       <summary class="flex cursor-pointer items-center justify-between px-6 py-4 text-primary font-semibold hover:bg-surface-subtle transition-colors list-none [&::-webkit-details-marker]:hidden">
         <span>{item.question}</span>
         <svg
