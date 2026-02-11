@@ -1,0 +1,14 @@
+---
+interface Props {
+  headline: string;
+  body: string;
+}
+
+const { headline, body } = Astro.props;
+---
+
+<div>
+  <div class="w-10 h-1 rounded-full bg-gradient-brand mb-6" aria-hidden="true"></div>
+  <h3 class="text-xl font-semibold text-primary">{headline}</h3>
+  <p class="mt-4 text-secondary leading-relaxed">{body}</p>
+</div>

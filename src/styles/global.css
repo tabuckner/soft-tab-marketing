@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — @theme (static, Tailwind-resolved)
+   ============================================================ */
+@theme {
+  /* Primary (Azure Blue) */
+  --color-primary-50: #EBF5FE;
+  --color-primary-100: #D6EBFD;
+  --color-primary-200: #AED7FB;
+  --color-primary-300: #85C3F9;
+  --color-primary-400: #5DAFF7;
+  --color-primary-500: #0779E5;
+  --color-primary-600: #0661B7;
+  --color-primary-700: #044989;
+  --color-primary-800: #03315B;
+  --color-primary-900: #02192E;
+  --color-primary-950: #010C17;
+
+  /* Accent (Strong Cyan) */
+  --color-accent-50: #EDFBFC;
+  --color-accent-100: #DBF7F9;
+  --color-accent-200: #B7EFF3;
+  --color-accent-300: #93E7ED;
+  --color-accent-400: #6FDFE7;
+  --color-accent-500: #36D1DC;
+  --color-accent-600: #2BA7B0;
+  --color-accent-700: #207D84;
+  --color-accent-800: #165358;
+  --color-accent-900: #0B2A2C;
+  --color-accent-950: #051516;
+
+  /* Neutral (Blue-Tinted) */
+  --color-neutral-50: #F8FAFB;
+  --color-neutral-100: #F1F5F7;
+  --color-neutral-200: #E4EAF0;
+  --color-neutral-300: #CFD8E3;
+  --color-neutral-400: #A3B4C7;
+  --color-neutral-500: #6B7F96;
+  --color-neutral-600: #506176;
+  --color-neutral-700: #3C4D5E;
+  --color-neutral-800: #2A3745;
+  --color-neutral-900: #1A232E;
+  --color-neutral-950: #0F1419;
+
+  /* Semantic */
+  --color-success-50: #EEFBF4;
+  --color-success-500: #10B981;
+  --color-success-700: #047857;
+  --color-warning-50: #FFFBEB;
+  --color-warning-500: #F59E0B;
+  --color-warning-700: #B45309;
+  --color-error-50: #FEF2F2;
+  --color-error-500: #EF4444;
+  --color-error-700: #B91C1C;
+
+  /* Font */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  /* Shadows (light mode defaults) */
+  --shadow-xs: 0 1px 2px rgba(26, 35, 46, 0.05);
+  --shadow-sm: 0 1px 3px rgba(26, 35, 46, 0.08), 0 1px 2px rgba(26, 35, 46, 0.04);
+  --shadow-md: 0 4px 6px rgba(26, 35, 46, 0.07), 0 2px 4px rgba(26, 35, 46, 0.04);
+  --shadow-lg: 0 10px 15px rgba(26, 35, 46, 0.08), 0 4px 6px rgba(26, 35, 46, 0.04);
+  --shadow-xl: 0 20px 25px rgba(26, 35, 46, 0.10), 0 8px 10px rgba(26, 35, 46, 0.04);
+  --shadow-brand: 0 4px 14px rgba(7, 121, 229, 0.25);
+
+  /* Easing */
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0.0, 1.0, 1.0);
+
+  /* Durations */
+  --duration-short: 150ms;
+  --duration-medium: 200ms;
+  --duration-medium2: 250ms;
+  --duration-long: 300ms;
+}
+
+/* ============================================================
+   SEMANTIC TOKENS — CSS Custom Properties (dark-mode-switchable)
+   ============================================================ */
+:root {
+  /* Surfaces */
+  --color-surface-page: #FAFBFC;
+  --color-surface-card: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+  --color-surface-subtle: #F1F5F7;
+  --color-surface-hover: #E4EAF0;
+  --color-surface-overlay: rgba(26, 35, 46, 0.65);
+
+  /* Text */
+  --color-text-primary: #2A3745;
+  --color-text-secondary: #506176;
+  --color-text-tertiary: #6B7F96;
+  --color-text-muted: #A3B4C7;
+  --color-text-inverse: #FFFFFF;
+  --color-text-brand: #0779E5;
+
+  /* Borders */
+  --color-border: #E4EAF0;
+  --color-border-strong: #CFD8E3;
+
+  /* Gradients */
+  --gradient-brand: linear-gradient(135deg, #0779E5 0%, #36D1DC 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(7,121,229,0.15) 0%, rgba(54,209,220,0.15) 100%);
+  --gradient-surface: linear-gradient(180deg, #F8FAFB 0%, #EBF5FE 100%);
+  --gradient-brand-reverse: linear-gradient(135deg, #36D1DC 0%, #0779E5 100%);
+
+  /* Focus ring */
+  --color-focus-ring: #0779E5;
+}
+
+/* Dark mode: OS preference (unless user chose light) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-surface-page: #0F1419;
+    --color-surface-card: #1A232E;
+    --color-surface-elevated: #2A3745;
+    --color-surface-subtle: #1A232E;
+    --color-surface-hover: #2A3745;
+    --color-surface-overlay: rgba(0, 0, 0, 0.7);
+
+    --color-text-primary: #F1F5F7;
+    --color-text-secondary: #CFD8E3;
+    --color-text-tertiary: #A3B4C7;
+    --color-text-muted: #6B7F96;
+    --color-text-inverse: #0F1419;
+    --color-text-brand: #5DAFF7;
+
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-border-strong: rgba(255, 255, 255, 0.15);
+
+    --gradient-brand: linear-gradient(135deg, #5DAFF7 0%, #6FDFE7 100%);
+    --gradient-subtle: linear-gradient(135deg, rgba(93,175,247,0.12) 0%, rgba(111,223,231,0.12) 100%);
+    --gradient-surface: linear-gradient(180deg, #0F1419 0%, #1A232E 100%);
+    --gradient-brand-reverse: linear-gradient(135deg, #6FDFE7 0%, #5DAFF7 100%);
+
+    --color-focus-ring: #5DAFF7;
+  }
+}
+
+/* Dark mode: user manual override */
+[data-theme="dark"] {
+  --color-surface-page: #0F1419;
+  --color-surface-card: #1A232E;
+  --color-surface-elevated: #2A3745;
+  --color-surface-subtle: #1A232E;
+  --color-surface-hover: #2A3745;
+  --color-surface-overlay: rgba(0, 0, 0, 0.7);
+
+  --color-text-primary: #F1F5F7;
+  --color-text-secondary: #CFD8E3;
+  --color-text-tertiary: #A3B4C7;
+  --color-text-muted: #6B7F96;
+  --color-text-inverse: #0F1419;
+  --color-text-brand: #5DAFF7;
+
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.15);
+
+  --gradient-brand: linear-gradient(135deg, #5DAFF7 0%, #6FDFE7 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(93,175,247,0.12) 0%, rgba(111,223,231,0.12) 100%);
+  --gradient-surface: linear-gradient(180deg, #0F1419 0%, #1A232E 100%);
+  --gradient-brand-reverse: linear-gradient(135deg, #6FDFE7 0%, #5DAFF7 100%);
+
+  --color-focus-ring: #5DAFF7;
+}
+
+/* ============================================================
+   SHORTHAND UTILITY CLASSES
+   ============================================================ */
+
+/* Surfaces */
+@utility bg-surface-page { background-color: var(--color-surface-page); }
+@utility bg-surface-card { background-color: var(--color-surface-card); }
+@utility bg-surface-elevated { background-color: var(--color-surface-elevated); }
+@utility bg-surface-subtle { background-color: var(--color-surface-subtle); }
+
+/* Text */
+@utility text-primary { color: var(--color-text-primary); }
+@utility text-secondary { color: var(--color-text-secondary); }
+@utility text-tertiary { color: var(--color-text-tertiary); }
+@utility text-muted { color: var(--color-text-muted); }
+@utility text-inverse { color: var(--color-text-inverse); }
+@utility text-brand { color: var(--color-text-brand); }
+
+/* Borders */
+@utility border-default { border-color: var(--color-border); }
+@utility border-strong { border-color: var(--color-border-strong); }
+
+/* Gradients */
+@utility bg-gradient-brand { background-image: var(--gradient-brand); }
+@utility bg-gradient-subtle { background-image: var(--gradient-subtle); }
+@utility bg-gradient-surface { background-image: var(--gradient-surface); }
+@utility text-gradient-brand {
+  background-image: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Focus ring */
+@utility focus-ring {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Gradient border wrapper: apply to a container div, put bg-surface-card on child */
+@utility gradient-border {
+  background: var(--gradient-brand);
+  padding: 1px;
+  border-radius: 1rem;
+}
+
+/* Gradient glow shadow (for buttons, featured elements) */
+@utility shadow-glow {
+  box-shadow:
+    0 4px 20px rgba(7, 121, 229, 0.20),
+    0 0 40px rgba(54, 209, 220, 0.08);
+}
+
+/* Scroll-reveal animation base state */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s cubic-bezier(0, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Revealed state (toggled by Intersection Observer) */
+@utility revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   BASE STYLES — inside @layer so Tailwind utilities can override
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-surface-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: var(--color-text-brand);
+    text-decoration: none;
+    transition: color var(--duration-short) var(--ease-standard);
+  }
+
+  a:hover {
+    color: var(--color-primary-600);
+    text-decoration: underline;
+  }
+
+  /* Focus styles for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

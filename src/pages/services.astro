@@ -1,0 +1,198 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import ServiceCard from '../components/blocks/ServiceCard.astro';
+import Button from '../components/ui/Button.astro';
+import FAQAccordion from '../components/blocks/FAQAccordion.astro';
+import CTABlock from '../components/blocks/CTABlock.astro';
+
+const engagementModels = [
+  {
+    headline: 'Project Delivery',
+    body: 'We own a defined deliverable end-to-end. You get a clear scope, milestones, and regular progress updates. Best for greenfield builds, MVPs, and feature development with a defined finish line.',
+  },
+  {
+    headline: 'Fractional & Embedded Engineering',
+    body: "Senior engineering capacity on a recurring basis, part-time or full-time. We plug into your workflow and ship alongside your team. Best for ongoing development needs and long-term partnerships. This is our most common engagement model.",
+  },
+  {
+    headline: 'Advisory & Fractional CTO',
+    body: "Strategic technical leadership without the full-time commitment. Architecture reviews, technology decisions, team mentoring, and build-vs-buy analysis on a flexible schedule. Best for founders and teams that need experienced guidance.",
+  },
+  {
+    headline: 'AI Training & Integration',
+    body: 'Workshops, tooling setup, and hands-on coaching to bring AI into your engineering workflow. Can be a one-day workshop or a phased rollout across your team. Best for teams ready to unlock the productivity gains that AI tooling makes possible.',
+  },
+];
+
+const deepExpertise = ['TypeScript / JavaScript', 'Angular / Angular Material', 'React / Next.js', 'Node.js / NestJS', 'Tailwind CSS / SASS', 'RxJS'];
+const strongExperience = ['Go / Java / Python / Flask', 'PostgreSQL / MongoDB / SQL', 'GraphQL / REST APIs', 'Jest / Testing frameworks', 'Firebase / JWT auth', 'Figma / Material Design'];
+const platforms = ['Web applications (SPA, SSR, static)', 'CLIs & developer tooling', 'Desktop apps (Electron)', 'Cross-platform mobile (Ionic, Flutter)', 'On-premise / enterprise software'];
+
+const faqs = [
+  { question: 'How is Soft-TAB different from hiring a freelancer?', answer: "Freelancers execute tasks. We own outcomes. That means strategic thinking, architecture decisions, and AI-augmented workflows, not just hours of coding. We also scale our team to match the project, so you're never limited to one person's availability or skill set." },
+  { question: 'What technologies do you work with?', answer: 'Our deepest expertise is in TypeScript, Angular, React, Node.js, and NestJS, but we work across a wide range of stacks including Go, Java, Python, and more. We\'re stack-flexible and choose the right tool for your problem.' },
+  { question: 'How much does this cost?', answer: "Every project is different, and we don't publish fixed pricing. We offer a free discovery call to understand your needs and provide a clear proposal with scope, timeline, and cost. Engagements range from short-term advisory to multi-month builds." },
+  { question: 'Can you work with our existing team?', answer: "Absolutely. Team augmentation is one of our core offerings. We embed in your workflow, your tools, and your processes. We've done this with teams of all sizes across many industries." },
+  { question: 'What does a typical engagement look like?', answer: 'It depends on the model. Project delivery has a defined scope and timeline. Fractional engineering is an ongoing partnership. Advisory is flexible hours per week. Every engagement starts with a free discovery call so we can recommend the right structure.' },
+  { question: 'What if AI-generated code is low quality?', answer: "AI is a tool, not a replacement for engineering judgment. We use AI to accelerate the repetitive parts of development while our senior engineers make every architectural and quality decision. Every output is reviewed, tested, and validated." },
+  { question: 'Do you use AI to write all the code?', answer: 'No. AI assists with drafting, scaffolding, testing, and documentation. Senior engineers design the architecture, make technology decisions, review all output, and own the quality of the final product.' },
+];
+---
+
+<BaseLayout
+  title="Software Development Services | Fractional Teams & CTO Advisory | Soft-TAB"
+  description="Flexible software engineering services: greenfield builds, team augmentation, fractional CTO advisory, and AI training. Expert execution without the enterprise overhead."
+>
+  <!-- Hero -->
+  <Hero
+    headline="What we build. How we work."
+    subheadline="From greenfield products to project rescues, from fractional engineering to AI training. We structure every engagement around what you actually need."
+  />
+
+  <!-- Service Categories -->
+  <Section>
+    <Container>
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">Our services</h2>
+      </div>
+      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
+        <ServiceCard
+          icon="code"
+          headline="Custom Software Development"
+          body="We build production-grade web applications from the ground up. Whether you're launching an MVP or scaling an existing product, we handle architecture, development, and deployment. All designed to grow with you."
+          bullets={['Greenfield product builds (concept to production)', 'Full-stack web application development', 'API design and backend systems', 'Mobile-responsive web applications']}
+          whoItsFor="Founders with a product vision. Teams adding a new product line. Anyone who needs software built right the first time."
+        />
+        <ServiceCard
+          icon="users"
+          headline="Team Augmentation & Rescue"
+          body="Need senior engineering capacity without the hiring timeline? We embed directly in your team and ship from day one. We also specialize in rescuing projects that have gone off the rails."
+          bullets={['Embedded senior engineering alongside your team', 'Project rescue and codebase modernization', 'Architecture assessment and code review', 'Sprint-based delivery within your existing workflow']}
+          whoItsFor="CTOs who can't hire fast enough. Teams with a critical project that needs experienced hands."
+        />
+        <ServiceCard
+          icon="zap"
+          headline="AI & Automation"
+          body="AI is how we work every day, not a slide in our pitch deck. We help teams adopt AI-augmented development workflows, train engineers on AI coding tools, and build AI-powered features into products."
+          bullets={['AI-augmented development workflows for your team', 'Hands-on training for engineers on AI coding tools', 'Business process automation', 'AI feature development and integration']}
+          whoItsFor="Engineering leaders who know AI can help but aren't sure where to start. Product owners looking to add AI-powered features."
+        />
+        <ServiceCard
+          icon="compass"
+          headline="Advisory & Strategy"
+          body="Sometimes you don't need more hands. You need the right guidance. We provide fractional CTO advisory, architecture review, and strategic technical leadership."
+          bullets={['Fractional CTO and technical leadership', 'Architecture review and planning', 'Technology stack evaluation', 'Build-vs-buy analysis']}
+          whoItsFor="Founders who need a technical sounding board. Teams facing a critical architecture decision."
+        />
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Engagement Models -->
+  <Section background="subtle" id="engagement-models">
+    <Container>
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-4">Engagement Models</p>
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">How we engage</h2>
+        <p class="mt-6 text-lg text-secondary leading-relaxed">
+          We don't force-fit your needs into our billing model. Pick the structure that works for you, or let us recommend one.
+        </p>
+      </div>
+      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
+        {engagementModels.map((model) => (
+          <div class="rounded-2xl bg-surface-card border border-default p-8 md:p-10">
+            <h3 class="text-xl font-semibold text-primary">{model.headline}</h3>
+            <p class="mt-4 text-secondary leading-relaxed">{model.body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-12">
+        <p class="text-secondary mb-4">Not sure which model fits? Every engagement starts with a conversation.</p>
+        <Button href="/contact" variant="primary" size="lg">
+          Schedule a Discovery Call
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Technologies -->
+  <Section id="technologies">
+    <Container>
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">Built with the right tools</h2>
+        <p class="mt-6 text-lg text-secondary leading-relaxed">
+          We choose the right technology for your problem, not force-fit our favorite framework.
+        </p>
+      </div>
+
+      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-8" style="transition-delay: 120ms;">
+        <div>
+          <h3 class="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Deep expertise</h3>
+          <ul class="space-y-2">
+            {deepExpertise.map((tech) => (
+              <li class="flex items-center gap-2 text-secondary">
+                <svg class="h-4 w-4 shrink-0 text-primary-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Strong experience</h3>
+          <ul class="space-y-2">
+            {strongExperience.map((tech) => (
+              <li class="flex items-center gap-2 text-secondary">
+                <svg class="h-4 w-4 shrink-0 text-primary-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Platforms we build for</h3>
+          <ul class="space-y-2">
+            {platforms.map((tech) => (
+              <li class="flex items-center gap-2 text-secondary">
+                <svg class="h-4 w-4 shrink-0 text-primary-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-center text-secondary mt-8">
+        Don't see your stack? AI-augmented development means we ramp fast on new technologies. If the problem is interesting, we'll find the right tool to solve it.
+      </p>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section background="subtle">
+    <Container narrow>
+      <h2 class="reveal text-3xl md:text-4xl font-semibold text-primary text-center mb-12">
+        Frequently asked questions
+      </h2>
+      <div class="reveal" style="transition-delay: 120ms;">
+        <FAQAccordion items={faqs} />
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Final CTA -->
+  <CTABlock
+    headline="Let's talk about what you need."
+    subheadline="Every engagement starts with a free discovery call. We'll learn about your project, recommend an approach, and give you a clear picture of what working together looks like."
+    buttonLabel="Schedule a Discovery Call"
+    buttonHref="/contact"
+  />
+</BaseLayout>

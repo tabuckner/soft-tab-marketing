@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soft-TAB Wordmark Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0F1419;
+      color: #F1F5F7;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6B7F96;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      color: #F1F5F7;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .option {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .option-header {
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .option-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #36D1DC;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .option-font-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #6B7F96;
+    }
+
+    .option-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .preview {
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .preview-dark {
+      background: #0F1419;
+    }
+
+    .preview-light {
+      background: #FAFBFC;
+    }
+
+    .preview-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    .preview-dark .preview-label { color: #F1F5F7; }
+    .preview-light .preview-label { color: #2A3745; }
+
+    /* Wordmark styles */
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .wordmark-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .wordmark-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .wordmark-text {
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .preview-dark .wordmark-text { color: #F1F5F7; }
+    .preview-light .wordmark-text { color: #2A3745; }
+
+    /* Gradient text option */
+    .wordmark-gradient {
+      background: linear-gradient(135deg, #0779E5, #36D1DC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .preview-light .wordmark-gradient {
+      background: linear-gradient(135deg, #0779E5, #2BA7B0);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    /* Weight variants */
+    .weight-row {
+      display: flex;
+      gap: 32px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+
+    .weight-variant {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .weight-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.3;
+      margin-top: 4px;
+    }
+
+    .weight-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Nav simulation */
+    .nav-sim {
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+
+    .preview-dark .nav-sim {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .preview-light .nav-sim {
+      background: #FFFFFF;
+      border: 1px solid #E4EAF0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .preview-dark .nav-links { color: #A3B4C7; }
+    .preview-light .nav-links { color: #506176; }
+
+    .nav-cta {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #0779E5, #36D1DC);
+      color: white;
+      white-space: nowrap;
+    }
+
+    .nav-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .nav-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .nav-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .nav-text {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    /* Descriptions */
+    .option-footer {
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #A3B4C7;
+    }
+
+    .option-footer strong {
+      color: #F1F5F7;
+    }
+
+    .tags {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #6B7F96;
+    }
+
+    .section-break {
+      margin: 60px 0 40px;
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    @media (max-width: 768px) {
+      .option-body { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .weight-row { flex-direction: column; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Soft-TAB Brand</h1>
+  <h2>Wordmark Typeface Options</h2>
+
+  <div class="options">
+
+    <!-- Option A: Inter -->
+    <div class="option">
+      <div class="option-header">
+        <span class="option-label">Option A</span>
+        <span class="option-font-name">Inter — The Modern Standard</span>
+      </div>
+      <div class="option-body">
+        <div class="preview preview-dark">
+          <span class="preview-label">Dark</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'Inter'; font-weight: 600;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'Inter'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'Inter'; font-weight: 600; color: #F1F5F7;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+        <div class="preview preview-light">
+          <span class="preview-label">Light</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'Inter'; font-weight: 600;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'Inter'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'Inter'; font-weight: 600; color: #2A3745;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+      </div>
+      <div class="option-footer">
+        <strong>Inter</strong> — The workhorse of modern tech. Used by GitHub, Figma, Linear. Extremely legible, neutral, professional. Never the wrong choice, but also never the most distinctive.
+        <div class="tags">
+          <span class="tag">Free (Google Fonts)</span>
+          <span class="tag">Safe choice</span>
+          <span class="tag">Variable font</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option B: Space Grotesk -->
+    <div class="option">
+      <div class="option-header">
+        <span class="option-label">Option B</span>
+        <span class="option-font-name">Space Grotesk — Engineering Character</span>
+      </div>
+      <div class="option-body">
+        <div class="preview preview-dark">
+          <span class="preview-label">Dark</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'Space Grotesk'; font-weight: 600;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'Space Grotesk'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'Space Grotesk'; font-weight: 600; color: #F1F5F7;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+        <div class="preview preview-light">
+          <span class="preview-label">Light</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'Space Grotesk'; font-weight: 600;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'Space Grotesk'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'Space Grotesk'; font-weight: 600; color: #2A3745;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+      </div>
+      <div class="option-footer">
+        <strong>Space Grotesk</strong> — Geometric with character. The slightly squared letterforms and distinctive 'a' and 'g' give it an engineering/technical feel without being a monospace font. More personality than Inter.
+        <div class="tags">
+          <span class="tag">Free (Google Fonts)</span>
+          <span class="tag">Distinctive</span>
+          <span class="tag">Technical feel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option C: Satoshi -->
+    <div class="option">
+      <div class="option-header">
+        <span class="option-label">Option C</span>
+        <span class="option-font-name">Satoshi — Premium & Refined</span>
+      </div>
+      <div class="option-body">
+        <div class="preview preview-dark">
+          <span class="preview-label">Dark</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'Satoshi'; font-weight: 500;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'Satoshi'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'Satoshi'; font-weight: 700; color: #F1F5F7;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+        <div class="preview preview-light">
+          <span class="preview-label">Light</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'Satoshi'; font-weight: 500;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'Satoshi'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'Satoshi'; font-weight: 700; color: #2A3745;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+      </div>
+      <div class="option-footer">
+        <strong>Satoshi</strong> — The premium indie font of 2024-2026. Clean, modern, slightly warm. Used by design-forward startups. Has a polished, boutique feel that signals quality. Pairs beautifully with technical content.
+        <div class="tags">
+          <span class="tag">Free (Fontshare)</span>
+          <span class="tag">Premium feel</span>
+          <span class="tag">Design-forward</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option D: General Sans -->
+    <div class="option">
+      <div class="option-header">
+        <span class="option-label">Option D</span>
+        <span class="option-font-name">General Sans — Clean & Versatile</span>
+      </div>
+      <div class="option-body">
+        <div class="preview preview-dark">
+          <span class="preview-label">Dark</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'General Sans'; font-weight: 600;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'General Sans'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'General Sans'; font-weight: 600; color: #F1F5F7;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+        <div class="preview preview-light">
+          <span class="preview-label">Light</span>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text" style="font-family: 'General Sans'; font-weight: 600;">Soft-TAB</span>
+          </div>
+          <div class="wordmark">
+            <div class="wordmark-icon"><img src="logo.png" alt="Soft-TAB logo"></div>
+            <span class="wordmark-text wordmark-gradient" style="font-family: 'General Sans'; font-weight: 700;">Soft-TAB</span>
+          </div>
+          <div class="nav-sim">
+            <div class="nav-wordmark">
+              <div class="nav-icon"><img src="logo.png" alt="Soft-TAB"></div>
+              <span class="nav-text" style="font-family: 'General Sans'; font-weight: 600; color: #2A3745;">Soft-TAB</span>
+            </div>
+            <div class="nav-links">
+              <span>Services</span>
+              <span>About</span>
+            </div>
+            <div class="nav-cta">Contact</div>
+          </div>
+        </div>
+      </div>
+      <div class="option-footer">
+        <strong>General Sans</strong> — The balanced middle ground. More character than Inter, less opinionated than Space Grotesk. Clean lines, generous spacing, excellent readability. Works equally well for headings and body text.
+        <div class="tags">
+          <span class="tag">Free (Fontshare)</span>
+          <span class="tag">Versatile</span>
+          <span class="tag">Great body text</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="section-break">
+
+  <h1>Notes</h1>
+  <h2>What to Look For</h2>
+  <div style="font-family: 'Inter'; font-size: 15px; line-height: 1.8; color: #A3B4C7; max-width: 640px;">
+    <p style="margin-bottom: 16px;">Each option shows the wordmark in two treatments: <strong style="color: #F1F5F7;">solid color</strong> and <strong style="color: #F1F5F7;">gradient text</strong>. Both are viable — the gradient version adds brand color but may not work at very small sizes.</p>
+    <p style="margin-bottom: 16px;">The nav simulation shows how each font feels in context — as a logo alongside navigation links and a CTA button.</p>
+    <p style="margin-bottom: 16px;">Pay attention to:</p>
+    <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+      <li>How the <strong style="color: #F1F5F7;">hyphen</strong> looks in each font (some handle it better)</li>
+      <li>How <strong style="color: #F1F5F7;">"TAB"</strong> in all-caps reads alongside lowercase "Soft"</li>
+      <li>Whether the font feels <strong style="color: #F1F5F7;">technical enough</strong> for an engineering consultancy</li>
+      <li>Which one you'd be proud to see at <strong style="color: #F1F5F7;">soft-tab.com</strong></li>
+    </ul>
+    <p style="margin-top: 24px; font-size: 13px; color: #506176;">All four fonts are free for commercial use. The logo icon shown is your actual Soft-TAB logo.</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soft-TAB Inspiration Gallery</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: #0F1419;
+    color: #F1F5F7;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    color: #A3B4C7;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+  }
+  .instructions {
+    background: rgba(7, 121, 229, 0.15);
+    border: 1px solid rgba(7, 121, 229, 0.3);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+  }
+  .instructions strong { color: #5DAFF7; }
+  .category {
+    margin-bottom: 3rem;
+  }
+  .category h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .category-count {
+    font-size: 0.85rem;
+    color: #6B7F96;
+    font-weight: 400;
+  }
+  .category-desc {
+    color: #A3B4C7;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.25rem;
+  }
+  .card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1A232E;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+  .card:hover {
+    border-color: rgba(7, 121, 229, 0.4);
+    transform: translateY(-2px);
+  }
+  .card.selected {
+    border-color: #0779E5;
+    box-shadow: 0 0 0 2px rgba(7, 121, 229, 0.3), 0 8px 24px rgba(7, 121, 229, 0.2);
+  }
+  .card-image-wrap {
+    position: relative;
+    cursor: pointer;
+  }
+  .card-image-wrap img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+  }
+  .card-expand-hint {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 20, 25, 0.0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    pointer-events: none;
+  }
+  .card-image-wrap:hover .card-expand-hint {
+    background: rgba(15, 20, 25, 0.4);
+  }
+  .card-expand-hint svg {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  }
+  .card-image-wrap:hover .card-expand-hint svg {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .card-label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: rgba(15, 20, 25, 0.85);
+    backdrop-filter: blur(8px);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #CFD8E3;
+    pointer-events: none;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.85rem;
+  }
+  .card-title {
+    font-size: 0.85rem;
+    color: #A3B4C7;
+    font-weight: 500;
+  }
+  .card-select-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    background: transparent;
+    color: #A3B4C7;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .card-select-btn:hover {
+    border-color: rgba(7, 121, 229, 0.5);
+    color: #F1F5F7;
+    background: rgba(7, 121, 229, 0.1);
+  }
+  .card.selected .card-select-btn {
+    border-color: #0779E5;
+    background: linear-gradient(135deg, #0779E5, #36D1DC);
+    color: white;
+  }
+  .card-select-btn .check-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .lightbox.visible {
+    display: flex;
+  }
+  .lightbox-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    z-index: 10;
+  }
+  .lightbox-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .lightbox-id {
+    background: rgba(255,255,255,0.1);
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .lightbox-title {
+    font-size: 0.95rem;
+    color: #CFD8E3;
+  }
+  .lightbox-cat {
+    font-size: 0.85rem;
+    color: #6B7F96;
+  }
+  .lightbox-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .lightbox-select-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 8px;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    color: #F1F5F7;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .lightbox-select-btn:hover {
+    border-color: rgba(7, 121, 229, 0.6);
+    background: rgba(7, 121, 229, 0.15);
+  }
+  .lightbox-select-btn.is-selected {
+    border-color: transparent;
+    background: linear-gradient(135deg, #0779E5, #36D1DC);
+    color: white;
+  }
+  .lightbox-select-btn .check-icon {
+    width: 16px;
+    height: 16px;
+  }
+  .lightbox-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: #F1F5F7;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+  }
+  .lightbox-close:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  .lightbox-image-wrap {
+    max-width: 90vw;
+    max-height: calc(100vh - 140px);
+    margin-top: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox-image-wrap img {
+    max-width: 100%;
+    max-height: calc(100vh - 140px);
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: #F1F5F7;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s ease;
+    z-index: 10;
+  }
+  .lightbox-nav:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  .lightbox-nav.prev { left: 1.5rem; }
+  .lightbox-nav.next { right: 1.5rem; }
+
+  /* Summary bar */
+  .summary-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 35, 46, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  .summary-bar.visible {
+    transform: translateY(0);
+  }
+  .summary-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .summary-count {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+  .summary-picks {
+    color: #A3B4C7;
+    font-size: 0.9rem;
+  }
+  .summary-btn {
+    background: linear-gradient(135deg, #0779E5, #36D1DC);
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .summary-btn:hover { opacity: 0.9; }
+
+  /* Results overlay */
+  .results-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 400;
+    align-items: center;
+    justify-content: center;
+  }
+  .results-overlay.visible {
+    display: flex;
+  }
+  .results-box {
+    background: #1A232E;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  .results-box h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .results-box .pick-item {
+    display: flex;
+    gap: 1rem;
+    align-items: start;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .results-box .pick-item:last-child { border-bottom: none; }
+  .pick-thumb {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .pick-info strong { display: block; margin-bottom: 0.25rem; }
+  .pick-info span { color: #A3B4C7; font-size: 0.85rem; }
+  .copy-text {
+    background: #0F1419;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-family: monospace;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+    color: #CFD8E3;
+    position: relative;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #2A3745;
+    color: #CFD8E3;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .copy-btn:hover { background: #3C4D5E; }
+  .close-btn {
+    background: #2A3745;
+    color: #CFD8E3;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  .close-btn:hover { background: #3C4D5E; }
+  body { padding-bottom: 5rem; }
+
+  @media (max-width: 768px) {
+    body { padding: 1rem; }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+    .lightbox-nav { width: 36px; height: 36px; font-size: 1.1rem; }
+    .lightbox-nav.prev { left: 0.5rem; }
+    .lightbox-nav.next { right: 0.5rem; }
+    .lightbox-header { padding: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<h1>Soft-TAB Inspiration Gallery</h1>
+<p class="subtitle">47 designs across 4 categories</p>
+
+<div class="instructions">
+  <strong>How to use:</strong> <strong>Click an image</strong> to expand it full-size in a lightbox. Use the <strong>"Select"</strong> button on each card (or in the lightbox) to pick favorites. Choose <strong>3-5 designs</strong>, then hit "Show My Picks" for a summary to paste back into the chat.
+</div>
+
+<div id="gallery"></div>
+
+<div class="summary-bar" id="summaryBar">
+  <div class="summary-left">
+    <span class="summary-count" id="summaryCount">0 selected</span>
+    <span class="summary-picks" id="summaryPicks"></span>
+  </div>
+  <button class="summary-btn" onclick="showResults()">Show My Picks</button>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-header">
+    <div class="lightbox-info">
+      <span class="lightbox-id" id="lbId"></span>
+      <span class="lightbox-title" id="lbTitle"></span>
+      <span class="lightbox-cat" id="lbCat"></span>
+    </div>
+    <div class="lightbox-actions">
+      <button class="lightbox-select-btn" id="lbSelectBtn" onclick="toggleFromLightbox()">
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="lbSelectLabel">Select</span>
+      </button>
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    </div>
+  </div>
+  <button class="lightbox-nav prev" onclick="navigateLightbox(-1)">&#8249;</button>
+  <button class="lightbox-nav next" onclick="navigateLightbox(1)">&#8250;</button>
+  <div class="lightbox-image-wrap">
+    <img id="lbImage" src="" alt="">
+  </div>
+</div>
+
+<!-- Results overlay -->
+<div class="results-overlay" id="resultsOverlay">
+  <div class="results-box" id="resultsBox"></div>
+</div>
+
+<script>
+const categories = [
+  {
+    name: "Software Consultancy",
+    desc: "Direct competitor aesthetics - professional consulting firms",
+    items: [
+      { id: "C1", title: "Consulting App", url: "https://cdn.dribbble.com/userupload/44394892/file/b67bfbf240394455e97e068a842dc74a.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "C2", title: "Consulting App", url: "https://cdn.dribbble.com/userupload/5329377/file/original-c1c77f1ea327ac5d90a3fe4a080adbd6.jpg?resize=1600x0" },
+      { id: "C3", title: "Consultancy Website", url: "https://cdn.dribbble.com/userupload/46609569/file/809d58f58c1294bb99bcd8cdd4a729e3.jpg?resize=1600x0" },
+      { id: "C4", title: "Website Dev Company", url: "https://cdn.dribbble.com/userupload/5884752/file/original-8aae45de534e1325677c689bec8f41f0.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "C5", title: "Consultancy Design", url: "https://cdn.dribbble.com/userupload/17535060/file/original-ba5d7c8a19146d63fad86452fa6676c3.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "C6", title: "IT Consultant", url: "https://cdn.dribbble.com/userupload/10576640/file/original-6f2087b262b7b0c4bb499104ff5a867a.png?resize=1600x0" },
+      { id: "C7", title: "IT Consultancy", url: "https://cdn.dribbble.com/userupload/17240013/file/original-c170643cb049ee6c278a5fc3b7c2837b.jpg?format=webp&resize=1600x1200&vertical=center" },
+      { id: "C8", title: "IT Consultant", url: "https://cdn.dribbble.com/userupload/45287509/file/22e5fc0ef7c4be795cff6fcf32981a40.png?resize=1600x0" },
+      { id: "C9", title: "IT Consultancy", url: "https://cdn.dribbble.com/userupload/27896351/file/original-bf3da02b533cb06fcaecb24a83acbf06.jpg?format=webp&resize=1600x1200&vertical=center" },
+    ]
+  },
+  {
+    name: "Dark Theme / Tech Agency",
+    desc: "Bold, tech-forward dark aesthetics",
+    items: [
+      { id: "D1", title: "Dark Web App", url: "https://cdn.dribbble.com/userupload/20767135/file/original-b380695972b811f27b31c8d54468f080.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "D2", title: "Dark Website", url: "https://cdn.dribbble.com/userupload/10204738/file/original-fca9d854534b8535f7ecf666915b0803.png?crop=0x0-6402x4801&format=webp&resize=1600x1200&vertical=center" },
+      { id: "D3", title: "Dark Website", url: "https://cdn.dribbble.com/userupload/11027606/file/original-bc8412fc15c871437b9b286b41ee267e.jpg?format=webp&resize=1600x1200&vertical=center" },
+      { id: "D4", title: "Dark Website", url: "https://cdn.dribbble.com/userupload/43228458/file/original-7dfc3de8d8919c3e7f068d04371cc730.jpg?resize=1600x0" },
+      { id: "D5", title: "Agency Dark Theme", url: "https://cdn.dribbble.com/userupload/17658049/file/original-b046e683e82770a165d9443a118f7f5e.png?crop=0x0-1440x1080&format=webp&resize=1600x1200&vertical=center" },
+      { id: "D6", title: "Dark Web Design", url: "https://cdn.dribbble.com/userupload/33771691/file/original-fa60241d78e8c40b437ea6473cbbaee7.jpg?resize=1600x0" },
+      { id: "D7", title: "Dark Web Design", url: "https://cdn.dribbble.com/userupload/9949208/file/original-891717a75ee42383fd3cdb9727843b9f.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "D8", title: "Dark Website Design", url: "https://cdn.dribbble.com/userupload/42019160/file/original-cf78ba00d0714fbac7a0212ff2e7db46.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "D9", title: "Dark Web Theme", url: "https://cdn.dribbble.com/userupload/16461473/file/original-9a1effb995c1f64ecfe9644afa636a78.png?crop=0x0-2048x1536&format=webp&resize=1600x1200&vertical=center" },
+      { id: "D10", title: "Web Agency Dark", url: "https://cdn.dribbble.com/userupload/43347751/file/original-cb6d0fe66bb48294815833bf9d8bdb2d.png?format=webp&resize=1600x1200&vertical=center" },
+    ]
+  },
+  {
+    name: "Blue SaaS / Landing Pages",
+    desc: "Blue-forward designs closest to our brand palette",
+    items: [
+      { id: "B1", title: "Blue SaaS", url: "https://cdn.dribbble.com/userupload/17486004/file/original-ec11cbc3d29251bd479af64e71e00ddc.png?crop=0x0-1600x1200&format=webp&resize=1600x1200&vertical=center" },
+      { id: "B2", title: "SaaS Blue", url: "https://cdn.dribbble.com/userupload/46053019/file/3571e945556de7bc706bf6c6e8ddc1ae.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "B3", title: "SaaS Blue", url: "https://cdn.dribbble.com/userupload/41999963/file/original-eabd61cc56bb3d7ec9c2f820860bc5bb.jpg?resize=1600x0" },
+      { id: "B4", title: "SaaS Blue", url: "https://cdn.dribbble.com/userupload/14663667/file/original-f38e3c1066de47d4f62250bc4e4b5adb.jpg?format=webp&resize=1600x1200&vertical=center" },
+      { id: "B5", title: "Blue Theme Landing", url: "https://cdn.dribbble.com/userupload/46080534/file/f72c695d18e436a5a73a4b534a0a2199.jpg?crop=0x0-2876x2157&format=webp&resize=1600x1200&vertical=center" },
+      { id: "B6", title: "Blue Landing Page", url: "https://cdn.dribbble.com/userupload/16429287/file/original-9ce80ee9070f3244ea208ce8a0b039e3.png?resize=1600x0" },
+      { id: "B7", title: "Blue Landing Page", url: "https://cdn.dribbble.com/userupload/19428396/file/original-3046155a0eef5f752ea197cdbc6fa492.jpg?resize=1600x0" },
+      { id: "B8", title: "Blue Theme Landing", url: "https://cdn.dribbble.com/userupload/45627709/file/475b992a494b436cf745f10786ee21fa.jpg?resize=1600x0" },
+      { id: "B9", title: "SaaS Blue", url: "https://cdn.dribbble.com/userupload/45424458/file/bd967ae11d6d8b50f0fc93b125bc248a.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "B10", title: "Blue Landing Page", url: "https://cdn.dribbble.com/userupload/33326788/file/still-3d2d48bb7891235e5ee792a38dc395d3.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "B11", title: "Blue Landing Page", url: "https://cdn.dribbble.com/userupload/44288848/file/158359068ad3dff94d522e94af8829cb.png?format=webp&resize=1600x1200&vertical=center" },
+    ]
+  },
+  {
+    name: "Minimal / Corporate Engineering",
+    desc: "Clean, whitespace-heavy, professional engineering sites",
+    items: [
+      { id: "M1", title: "Engineering Website", url: "https://cdn.dribbble.com/userupload/44203579/file/original-c5dd2d7284903845d89d68ca115f821c.png?resize=1600x0" },
+      { id: "M2", title: "Engineering", url: "https://cdn.dribbble.com/userupload/16624420/file/still-bf4e20d0dc7347734cbf5973d84e80fb.png?resize=1600x0" },
+      { id: "M3", title: "Minimal Web App", url: "https://cdn.dribbble.com/userupload/16178955/file/original-14084925ebed8c62526d7108d24e7d80.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "M4", title: "Minimal Corporate", url: "https://cdn.dribbble.com/userupload/45520277/file/7ebd945ed104c56aa8a62d90b216ecdb.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "M5", title: "Engineering Website", url: "https://cdn.dribbble.com/userupload/44937973/file/240cbeb9ef4668603e9901c05d0ff4b5.png?format=webp&resize=1600x1200&vertical=center" },
+      { id: "M6", title: "Minimal Corporate", url: "https://cdn.dribbble.com/userupload/43324229/file/original-06f2a69a11b272d95f1b005cf7fe0e3b.jpg?format=webp&resize=1600x1200&vertical=center" },
+      { id: "M7", title: "Minimal Corporate", url: "https://cdn.dribbble.com/userupload/46374124/file/42af091ae05ce4da8f12154824603a72.png?crop=0x0-3201x2401&format=webp&resize=1600x1200&vertical=center" },
+      { id: "M8", title: "Minimal Corporate", url: "https://cdn.dribbble.com/userupload/45922066/file/99094633cddd2b3c5a5499297958bed9.jpeg?format=webp&resize=1600x1200&vertical=center" },
+    ]
+  }
+];
+
+const selected = new Set();
+const allItems = categories.flatMap(c => c.items);
+let currentLightboxIndex = -1;
+
+// --- Checkmark SVG (reusable) ---
+const checkSvg = `<svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+// --- Expand icon SVG ---
+const expandSvg = `<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>`;
+
+function render() {
+  const gallery = document.getElementById('gallery');
+  gallery.innerHTML = categories.map(cat => `
+    <div class="category">
+      <h2>${cat.name} <span class="category-count">(${cat.items.length})</span></h2>
+      <p class="category-desc">${cat.desc}</p>
+      <div class="grid">
+        ${cat.items.map(item => {
+          const isSelected = selected.has(item.id);
+          return `
+          <div class="card ${isSelected ? 'selected' : ''}" data-id="${item.id}">
+            <div class="card-image-wrap" onclick="openLightbox('${item.id}')">
+              <img src="${item.url}" alt="${item.title}" loading="lazy">
+              <div class="card-label">${item.id}</div>
+              <div class="card-expand-hint">${expandSvg}</div>
+            </div>
+            <div class="card-footer">
+              <span class="card-title">${item.title}</span>
+              <button class="card-select-btn" onclick="toggle('${item.id}')">
+                ${checkSvg}
+                ${isSelected ? 'Selected' : 'Select'}
+              </button>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggle(id) {
+  if (selected.has(id)) {
+    selected.delete(id);
+  } else {
+    selected.add(id);
+  }
+  render();
+  updateSummary();
+  updateLightboxSelectBtn();
+}
+
+function updateSummary() {
+  const bar = document.getElementById('summaryBar');
+  const count = document.getElementById('summaryCount');
+  const picks = document.getElementById('summaryPicks');
+
+  if (selected.size > 0) {
+    bar.classList.add('visible');
+    count.textContent = `${selected.size} selected`;
+    picks.textContent = Array.from(selected).join(', ');
+  } else {
+    bar.classList.remove('visible');
+  }
+}
+
+// --- Lightbox ---
+function openLightbox(id) {
+  const idx = allItems.findIndex(i => i.id === id);
+  if (idx === -1) return;
+  currentLightboxIndex = idx;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('visible');
+  document.body.style.overflow = '';
+  currentLightboxIndex = -1;
+}
+
+function navigateLightbox(dir) {
+  currentLightboxIndex = (currentLightboxIndex + dir + allItems.length) % allItems.length;
+  renderLightbox();
+}
+
+function renderLightbox() {
+  const item = allItems[currentLightboxIndex];
+  if (!item) return;
+  const cat = categories.find(c => c.items.some(i => i.id === item.id));
+
+  document.getElementById('lbId').textContent = item.id;
+  document.getElementById('lbTitle').textContent = item.title;
+  document.getElementById('lbCat').textContent = cat ? `— ${cat.name}` : '';
+  document.getElementById('lbImage').src = item.url;
+  document.getElementById('lbImage').alt = item.title;
+  updateLightboxSelectBtn();
+}
+
+function updateLightboxSelectBtn() {
+  if (currentLightboxIndex === -1) return;
+  const item = allItems[currentLightboxIndex];
+  if (!item) return;
+  const btn = document.getElementById('lbSelectBtn');
+  const label = document.getElementById('lbSelectLabel');
+  const isSelected = selected.has(item.id);
+  btn.classList.toggle('is-selected', isSelected);
+  label.textContent = isSelected ? 'Selected' : 'Select';
+}
+
+function toggleFromLightbox() {
+  if (currentLightboxIndex === -1) return;
+  const item = allItems[currentLightboxIndex];
+  if (!item) return;
+  toggle(item.id);
+}
+
+// --- Keyboard navigation ---
+document.addEventListener('keydown', (e) => {
+  const lb = document.getElementById('lightbox');
+  if (!lb.classList.contains('visible')) return;
+
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navigateLightbox(-1);
+  if (e.key === 'ArrowRight') navigateLightbox(1);
+  if (e.key === ' ' || e.key === 'Enter') {
+    e.preventDefault();
+    toggleFromLightbox();
+  }
+});
+
+// Close lightbox on backdrop click
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget || e.target.classList.contains('lightbox-image-wrap')) {
+    closeLightbox();
+  }
+});
+
+// --- Results ---
+function showResults() {
+  const overlay = document.getElementById('resultsOverlay');
+  const box = document.getElementById('resultsBox');
+
+  const pickedItems = Array.from(selected).map(id => allItems.find(i => i.id === id)).filter(Boolean);
+
+  const textSummary = pickedItems.map(item => {
+    const cat = categories.find(c => c.items.some(i => i.id === item.id));
+    return `- **${item.id}** (${cat.name}): "${item.title}"`;
+  }).join('\n');
+
+  box.innerHTML = `
+    <h3>Your Picks (${pickedItems.length})</h3>
+    ${pickedItems.map(item => {
+      const cat = categories.find(c => c.items.some(i => i.id === item.id));
+      return `
+        <div class="pick-item">
+          <img class="pick-thumb" src="${item.url}" alt="${item.title}">
+          <div class="pick-info">
+            <strong>${item.id}: ${item.title}</strong>
+            <span>${cat.name}</span>
+          </div>
+        </div>
+      `;
+    }).join('')}
+    <p style="margin-top:1.25rem; color:#A3B4C7; font-size:0.9rem;">Copy this and paste it back in the chat:</p>
+    <div class="copy-text" id="copyText">My picks: ${Array.from(selected).join(', ')}
+
+${textSummary}
+      <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+    </div>
+    <button class="close-btn" onclick="closeResults()">Close</button>
+  `;
+
+  overlay.classList.add('visible');
+}
+
+function closeResults() {
+  document.getElementById('resultsOverlay').classList.remove('visible');
+}
+
+function copyToClipboard() {
+  const text = document.getElementById('copyText').innerText.replace('Copy', '').trim();
+  navigator.clipboard.writeText(text);
+  document.querySelector('.copy-btn').textContent = 'Copied!';
+  setTimeout(() => { document.querySelector('.copy-btn').textContent = 'Copy'; }, 2000);
+}
+
+document.getElementById('resultsOverlay').addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) closeResults();
+});
+
+render();
+</script>
+</body>
+</html>

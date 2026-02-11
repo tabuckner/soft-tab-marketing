@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import StatsRow from '../components/blocks/StatsRow.astro';
+import Button from '../components/ui/Button.astro';
+import CTABlock from '../components/blocks/CTABlock.astro';
+import FAQAccordion from '../components/blocks/FAQAccordion.astro';
+
+const values = [
+  {
+    headline: 'Quality over speed (but why not both?)',
+    body: "We don't cut corners to hit deadlines. AI-augmented workflows let us move fast without sacrificing the engineering rigor that keeps projects healthy long-term.",
+  },
+  {
+    headline: 'Transparency by default',
+    body: 'No surprises on scope, timeline, or cost. If something changes, you hear it from us first.',
+  },
+  {
+    headline: 'Outcomes, not hours',
+    body: "We measure success by what we deliver, not how long we sat at a desk. Every engagement is structured around results you can see and use.",
+  },
+  {
+    headline: 'Honest about AI',
+    body: "AI is a powerful tool and we use it every day. But we don't pretend it replaces engineering judgment. We'll tell you where AI helps, where it doesn't, and why that distinction matters.",
+  },
+];
+
+const industries = ['SaaS / B2B', 'Healthcare', 'Fintech', 'E-commerce', 'Education', 'Government / Public Sector'];
+
+const faqs = [
+  { question: 'How is Soft-TAB different from hiring a freelancer?', answer: "Freelancers execute tasks. We own outcomes. That means strategic thinking, architecture decisions, and AI-augmented workflows, not just hours of coding. We also scale our team to match the project, so you're never limited to one person's availability or skill set." },
+  { question: 'How do you handle communication and updates?', answer: "We adapt to your preferences. Some clients want weekly standups. Others prefer async updates via Slack or email. We agree on a communication cadence during kickoff and adjust as needed." },
+  { question: 'What technologies do you work with?', answer: 'Our deepest expertise is in TypeScript, Angular, React, Node.js, and NestJS, but we work across a wide range of stacks including Go, Java, Python, and more. See our <a href="/services#technologies">full technology list</a>.' },
+];
+---
+
+<BaseLayout
+  title="About Soft-TAB | Boutique AI-Assisted Software Consultancy"
+  description="Meet the team behind Soft-TAB. Senior software engineering expertise powered by AI-augmented development. No hype, just faster, smarter builds."
+>
+  <!-- Hero -->
+  <Hero
+    headline="Built by engineers. Driven by outcomes."
+    subheadline="Soft-TAB is a boutique software consultancy that pairs senior engineering expertise with AI-augmented development. We build software the way it should be built: fast, right, and with no surprises."
+  />
+
+  <!-- Our Story -->
+  <Section>
+    <Container narrow>
+      <h2 class="reveal text-3xl md:text-4xl font-semibold text-primary mb-10">Our story</h2>
+      <div class="reveal space-y-8 text-lg text-secondary leading-relaxed" style="transition-delay: 120ms;">
+        <p>
+          Soft-TAB was founded by Taylor Buckner, a software engineer who spent years building products across startups, growth-stage companies, and enterprise teams. The pattern was always the same: organizations needed senior talent that could ship fast, think architecturally, and own outcomes. Not just fill a seat.
+        </p>
+        <p>
+          Soft-TAB exists to be that partner. We're a consultancy built around a simple idea: experienced engineers, augmented by AI, can deliver what would normally require a much larger and more expensive team. We don't sell hours. We sell outcomes.
+        </p>
+        <p>
+          We keep our teams lean and focused. Every engagement is led by senior engineers who own the architecture, the code, and the outcome. No layers of account managers. No handoffs between strangers. Just a consistent team that knows your project inside and out.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- How We Work (brief) -->
+  <Section background="subtle">
+    <Container narrow>
+      <h2 class="text-3xl md:text-4xl font-semibold text-primary mb-6">How we work</h2>
+      <p class="text-secondary leading-relaxed">
+        Every engagement follows a flexible framework: Discover, Scope, Kickoff, Deliver, Evolve. The details bend to fit your team. Some clients want weekly standups. Others want async updates. We meet you where you are.
+      </p>
+      <div class="mt-6">
+        <Button href="/services#engagement-models" variant="tertiary">
+          See our engagement models →
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Values -->
+  <Section>
+    <Container>
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-4">Our Values</p>
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">What drives us</h2>
+      </div>
+      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
+        {values.map((value) => (
+          <div class="rounded-2xl bg-surface-card border border-default p-8 md:p-10">
+            <h3 class="text-xl font-semibold text-primary">{value.headline}</h3>
+            <p class="mt-4 text-secondary leading-relaxed">{value.body}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Credibility -->
+  <Section background="subtle">
+    <Container>
+      <div class="reveal text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">Experience you can trust</h2>
+      </div>
+      <div class="reveal" style="transition-delay: 120ms;">
+        <StatsRow
+          stats={[
+            { value: '10+', label: 'Years of professional engineering experience' },
+            { value: '50+', label: 'Projects delivered across industries' },
+            { value: 'Full-stack', label: 'From frontend to infrastructure' },
+          ]}
+        />
+      </div>
+
+      <!-- Industries -->
+      <div class="reveal mt-16 text-center" style="transition-delay: 240ms;">
+        <h3 class="text-sm font-semibold text-primary uppercase tracking-wider mb-4">Industries</h3>
+        <div class="flex flex-wrap justify-center gap-2">
+          {industries.map((industry) => (
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-surface-card border border-default text-secondary">
+              {industry}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Technologies brief -->
+      <div class="mt-8 text-center">
+        <p class="text-secondary">
+          TypeScript, Angular, React, Node.js, Go, Java, Python, and more. We're stack-flexible.
+        </p>
+        <div class="mt-3">
+          <Button href="/services#technologies" variant="tertiary">
+            See our full capabilities →
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- FAQ -->
+  <Section>
+    <Container narrow>
+      <h2 class="text-3xl md:text-4xl font-semibold text-primary text-center mb-12">
+        Common questions
+      </h2>
+      <FAQAccordion items={faqs} />
+    </Container>
+  </Section>
+
+  <!-- Final CTA -->
+  <CTABlock
+    headline="Want to work with us?"
+    subheadline="Every conversation starts with a free discovery call. No commitment, no pressure."
+    buttonLabel="Get in Touch"
+    buttonHref="/contact"
+  />
+</BaseLayout>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import ContactForm from '../components/blocks/ContactForm.astro';
+import Button from '../components/ui/Button.astro';
+import ProcessStep from '../components/blocks/ProcessStep.astro';
+---
+
+<BaseLayout
+  title="Contact Soft-TAB | Software Development Consultation"
+  description="Ready to build faster and smarter? Contact Soft-TAB for fractional development services, CTO advisory, or AI training. Free initial consultation."
+>
+  <!-- Hero -->
+  <Hero
+    headline="Let's talk about your project."
+    subheadline="Tell us what you're working on and we'll get back to you within one business day."
+  />
+
+  <!-- Form + Sidebar -->
+  <Section>
+    <Container>
+      <div class="reveal grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+        <!-- Form (left, wider) -->
+        <div class="lg:col-span-3">
+          <ContactForm />
+        </div>
+
+        <!-- Sidebar (right) -->
+        <div class="lg:col-span-2 space-y-10">
+          <!-- Prefer to talk? -->
+          <div class="rounded-2xl bg-surface-subtle border border-default p-8 md:p-10">
+            <h2 class="text-xl font-semibold text-primary">
+              Prefer to schedule a call directly?
+            </h2>
+            <p class="mt-3 text-secondary leading-relaxed">
+              Skip the form. Book a free 30-minute discovery call and we'll talk through your project live.
+            </p>
+            <div class="mt-4">
+              <Button href="#" variant="secondary" size="md">
+                Book a Discovery Call
+              </Button>
+            </div>
+          </div>
+
+          <!-- What happens next -->
+          <div>
+            <h2 class="text-xl font-semibold text-primary mb-6">What to expect</h2>
+            <ProcessStep number={1} title="Review" body="We review your message within one business day." />
+            <ProcessStep number={2} title="Connect" body="If it looks like a good fit, we'll schedule a free discovery call to dig deeper." />
+            <ProcessStep number={3} title="Proposal" body="After the call, you'll get a clear proposal: scope, approach, and timeline. No surprises." isLast={true} />
+          </div>
+
+          <p class="text-sm text-tertiary italic">
+            No pressure. No sales pitch. Just a conversation about what you need.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

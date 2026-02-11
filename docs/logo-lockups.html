@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soft-TAB Logo Lockup Variants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: #0F1419;
+    color: #F1F5F7;
+    padding: 2.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6B7F96;
+    margin-bottom: 0.5rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle {
+    color: #A3B4C7;
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .section {
+    margin-bottom: 3rem;
+  }
+  .section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .section-desc {
+    color: #6B7F96;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .variant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .variant-card {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .variant-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 2rem;
+    min-height: 140px;
+  }
+  .variant-display.bg-white { background: #FFFFFF; }
+  .variant-display.bg-light { background: #F8FAFB; }
+  .variant-display.bg-dark { background: #0F1419; }
+  .variant-display.bg-navy { background: #1A232E; }
+  .variant-display.bg-brand { background: linear-gradient(135deg, #0779E5, #36D1DC); }
+
+  .variant-meta {
+    padding: 0.75rem 1rem;
+    background: #1A232E;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .variant-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #CFD8E3;
+  }
+  .variant-context {
+    font-size: 0.75rem;
+    color: #6B7F96;
+  }
+
+  /* === LOCKUP STYLES === */
+
+  /* Horizontal lockup */
+  .lockup-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lockup-horizontal img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+  .lockup-horizontal .wordmark {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .lockup-horizontal.lg img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .lockup-horizontal.lg .wordmark {
+    font-size: 1.75rem;
+  }
+
+  .lockup-horizontal.sm img {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+  .lockup-horizontal.sm .wordmark {
+    font-size: 1.1rem;
+  }
+
+  /* Stacked lockup */
+  .lockup-stacked {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .lockup-stacked img {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+  }
+  .lockup-stacked .wordmark {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .lockup-stacked.lg img {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+  }
+  .lockup-stacked.lg .wordmark {
+    font-size: 1.75rem;
+  }
+
+  /* Icon only */
+  .lockup-icon img {
+    border-radius: 12px;
+  }
+  .lockup-icon.sz-sm img { width: 32px; height: 32px; border-radius: 7px; }
+  .lockup-icon.sz-md img { width: 48px; height: 48px; border-radius: 10px; }
+  .lockup-icon.sz-lg img { width: 64px; height: 64px; border-radius: 14px; }
+  .lockup-icon.sz-xl img { width: 96px; height: 96px; border-radius: 20px; }
+
+  /* Color variants */
+  .text-dark { color: #2A3745; }
+  .text-light { color: #F1F5F7; }
+  .text-brand { color: #0779E5; }
+  .text-gradient {
+    background: linear-gradient(135deg, #0779E5, #36D1DC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-light {
+    background: linear-gradient(135deg, #5DAFF7, #6FDFE7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Clear space visualization */
+  .clearspace-demo {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    background: #FFFFFF;
+    border-radius: 12px;
+  }
+  .clearspace-demo img {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+  }
+  .clearspace-demo .wordmark {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #2A3745;
+  }
+  .clearspace-border {
+    position: absolute;
+    inset: 0;
+    border: 2px dashed rgba(7, 121, 229, 0.3);
+    border-radius: 12px;
+    pointer-events: none;
+  }
+  .clearspace-label {
+    position: absolute;
+    font-size: 0.65rem;
+    color: #0779E5;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .clearspace-label.top { top: 6px; left: 50%; transform: translateX(-50%); }
+  .clearspace-label.bottom { bottom: 6px; left: 50%; transform: translateX(-50%); }
+  .clearspace-label.left { left: 4px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .clearspace-label.right { right: 4px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+  /* Minimum size */
+  .min-size-row {
+    display: flex;
+    align-items: end;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .min-size-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .min-size-item span {
+    font-size: 0.75rem;
+    color: #6B7F96;
+  }
+
+  /* Nav simulation */
+  .nav-sim {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 64px;
+    border-radius: 12px;
+  }
+  .nav-sim.light { background: #FFFFFF; border: 1px solid #E4EAF0; }
+  .nav-sim.dark { background: #1A232E; border: 1px solid rgba(255,255,255,0.08); }
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .nav-links.text-dark span { color: #506176; }
+  .nav-links.text-light span { color: #A3B4C7; }
+  .nav-cta {
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    background: #0779E5;
+  }
+
+  .usage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .usage-item {
+    background: #1A232E;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .usage-item h4 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: #CFD8E3;
+  }
+  .usage-item p {
+    font-size: 0.8rem;
+    color: #6B7F96;
+    line-height: 1.5;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin: 3rem 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>Brand Identity</h1>
+<h2>Logo Lockup Variants</h2>
+<p class="subtitle">
+  Three lockup configurations for different contexts. All use Inter (600 weight) for the wordmark.<br>
+  The logo icon's rounded-square border radius scales proportionally with size.
+</p>
+
+<!-- ========== HORIZONTAL ========== -->
+<div class="section">
+  <h3>1. Horizontal Lockup</h3>
+  <p class="section-desc">Primary lockup. Used in navigation, headers, and most brand placements.</p>
+
+  <div class="variant-grid">
+    <div class="variant-card">
+      <div class="variant-display bg-white">
+        <div class="lockup-horizontal lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-dark">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">On White</span>
+        <span class="variant-context">Light mode nav, headers</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-dark">
+        <div class="lockup-horizontal lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-light">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">On Dark</span>
+        <span class="variant-context">Dark mode nav, headers</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-brand">
+        <div class="lockup-horizontal lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-light">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">On Brand Gradient</span>
+        <span class="variant-context">Hero sections, banners</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-white">
+        <div class="lockup-horizontal lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-gradient">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">Gradient Text on White</span>
+        <span class="variant-context">Hero, featured placements</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-dark">
+        <div class="lockup-horizontal lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-gradient-light">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">Gradient Text on Dark</span>
+        <span class="variant-context">Dark mode hero, featured</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-light">
+        <div class="lockup-horizontal lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-brand">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">Brand Color on Light</span>
+        <span class="variant-context">Alternate — monochrome brand</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== STACKED ========== -->
+<div class="section">
+  <h3>2. Stacked Lockup</h3>
+  <p class="section-desc">For vertical spaces — loading screens, centered layouts, footer badges, social media profiles.</p>
+
+  <div class="variant-grid">
+    <div class="variant-card">
+      <div class="variant-display bg-white" style="min-height: 200px;">
+        <div class="lockup-stacked lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-dark">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">On White</span>
+        <span class="variant-context">Loading screens, centered layouts</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-dark" style="min-height: 200px;">
+        <div class="lockup-stacked lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-light">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">On Dark</span>
+        <span class="variant-context">Dark mode footer, social</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-brand" style="min-height: 200px;">
+        <div class="lockup-stacked lg">
+          <img src="logo.png" alt="Soft-TAB">
+          <span class="wordmark text-light">Soft-TAB</span>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">On Brand</span>
+        <span class="variant-context">Social media, presentations</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== ICON ONLY ========== -->
+<div class="section">
+  <h3>3. Icon Only</h3>
+  <p class="section-desc">For constrained spaces — favicon, mobile app icon, social avatar, small UI.</p>
+
+  <div class="variant-grid">
+    <div class="variant-card">
+      <div class="variant-display bg-white">
+        <div class="min-size-row">
+          <div class="min-size-item">
+            <div class="lockup-icon sz-sm"><img src="logo.png" alt="S"></div>
+            <span>32px — Favicon</span>
+          </div>
+          <div class="min-size-item">
+            <div class="lockup-icon sz-md"><img src="logo.png" alt="S"></div>
+            <span>48px — Tab bar</span>
+          </div>
+          <div class="min-size-item">
+            <div class="lockup-icon sz-lg"><img src="logo.png" alt="S"></div>
+            <span>64px — Avatar</span>
+          </div>
+          <div class="min-size-item">
+            <div class="lockup-icon sz-xl"><img src="logo.png" alt="S"></div>
+            <span>96px — Profile</span>
+          </div>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">Size Scale on White</span>
+        <span class="variant-context">Various contexts</span>
+      </div>
+    </div>
+
+    <div class="variant-card">
+      <div class="variant-display bg-dark">
+        <div class="min-size-row">
+          <div class="min-size-item">
+            <div class="lockup-icon sz-sm"><img src="logo.png" alt="S"></div>
+            <span>32px</span>
+          </div>
+          <div class="min-size-item">
+            <div class="lockup-icon sz-md"><img src="logo.png" alt="S"></div>
+            <span>48px</span>
+          </div>
+          <div class="min-size-item">
+            <div class="lockup-icon sz-lg"><img src="logo.png" alt="S"></div>
+            <span>64px</span>
+          </div>
+          <div class="min-size-item">
+            <div class="lockup-icon sz-xl"><img src="logo.png" alt="S"></div>
+            <span>96px</span>
+          </div>
+        </div>
+      </div>
+      <div class="variant-meta">
+        <span class="variant-label">Size Scale on Dark</span>
+        <span class="variant-context">Dark mode contexts</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== CLEAR SPACE ========== -->
+<div class="section">
+  <h3>4. Clear Space & Minimum Sizes</h3>
+  <p class="section-desc">Minimum clear space around the logo equals the height of the icon (1x). Never crowd the logo.</p>
+
+  <div style="display: flex; justify-content: center; padding: 3rem 0;">
+    <div class="clearspace-demo">
+      <div class="clearspace-border"></div>
+      <span class="clearspace-label top">1x</span>
+      <span class="clearspace-label bottom">1x</span>
+      <span class="clearspace-label left">1x</span>
+      <span class="clearspace-label right">1x</span>
+      <img src="logo.png" alt="Soft-TAB">
+      <span class="wordmark">Soft-TAB</span>
+    </div>
+  </div>
+
+  <div class="usage-grid">
+    <div class="usage-item">
+      <h4>Minimum Sizes</h4>
+      <p>
+        Horizontal lockup: min 120px wide<br>
+        Stacked lockup: min 80px wide<br>
+        Icon only: min 16px (favicon), 32px (UI)
+      </p>
+    </div>
+    <div class="usage-item">
+      <h4>Clear Space Rule</h4>
+      <p>
+        Minimum padding around any lockup = 1x the icon height. In the horizontal lockup with a 40px icon, that's 40px of clear space on all sides.
+      </p>
+    </div>
+    <div class="usage-item">
+      <h4>Icon Border Radius</h4>
+      <p>
+        Scales with size: ~20% of icon width.<br>
+        32px = 7px radius, 48px = 10px,<br>
+        64px = 14px, 96px = 20px.
+      </p>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== IN CONTEXT: NAV ========== -->
+<div class="section">
+  <h3>5. In Context: Navigation</h3>
+  <p class="section-desc">How the horizontal lockup looks in an actual nav bar.</p>
+
+  <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+    <div class="nav-sim light">
+      <div class="lockup-horizontal sm">
+        <img src="logo.png" alt="Soft-TAB">
+        <span class="wordmark text-dark">Soft-TAB</span>
+      </div>
+      <div class="nav-links text-dark">
+        <span>Services</span>
+        <span>About</span>
+        <span>Contact</span>
+      </div>
+      <div class="nav-cta">Book a Call</div>
+    </div>
+
+    <div class="nav-sim dark">
+      <div class="lockup-horizontal sm">
+        <img src="logo.png" alt="Soft-TAB">
+        <span class="wordmark text-light">Soft-TAB</span>
+      </div>
+      <div class="nav-links text-light">
+        <span>Services</span>
+        <span>About</span>
+        <span>Contact</span>
+      </div>
+      <div class="nav-cta">Book a Call</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ========== USAGE GUIDE ========== -->
+<div class="section">
+  <h3>6. When to Use Which</h3>
+  <div class="usage-grid">
+    <div class="usage-item">
+      <h4>Horizontal (Primary)</h4>
+      <p>
+        Website nav header<br>
+        Email signatures<br>
+        Document headers<br>
+        Invoice/proposal branding<br>
+        Partner/client logo rows
+      </p>
+    </div>
+    <div class="usage-item">
+      <h4>Stacked</h4>
+      <p>
+        Loading/splash screens<br>
+        Centered hero sections<br>
+        Social media profiles<br>
+        Presentation title slides<br>
+        Footer (centered variant)
+      </p>
+    </div>
+    <div class="usage-item">
+      <h4>Icon Only</h4>
+      <p>
+        Favicon (16-32px)<br>
+        Browser tab<br>
+        Mobile home screen icon<br>
+        Social media avatar<br>
+        Small UI elements
+      </p>
+    </div>
+    <div class="usage-item">
+      <h4>Wordmark Color Rules</h4>
+      <p>
+        <strong>Solid dark</strong> (#2A3745): Light backgrounds, nav<br>
+        <strong>Solid light</strong> (#F1F5F7): Dark backgrounds, nav<br>
+        <strong>Gradient</strong>: Hero headlines, featured spots<br>
+        <strong>Brand blue</strong> (#0779E5): Monochrome variant<br>
+        <strong>Never</strong>: Don't change the icon's gradient
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

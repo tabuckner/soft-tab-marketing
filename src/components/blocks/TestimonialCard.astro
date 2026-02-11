@@ -1,0 +1,29 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  title: string;
+  company: string;
+}
+
+const { quote, name, title, company } = Astro.props;
+---
+
+<blockquote class="relative rounded-2xl bg-surface-card border border-default p-8 md:p-10 shadow-sm overflow-hidden">
+  <!-- Gradient left accent -->
+  <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-brand rounded-l-2xl" aria-hidden="true"></div>
+
+  <!-- Decorative quote mark -->
+  <span class="block text-5xl leading-none text-gradient-brand font-serif select-none mb-4" aria-hidden="true">&ldquo;</span>
+
+  <p class="text-secondary text-lg leading-relaxed italic">
+    {quote}
+  </p>
+
+  <footer class="mt-6 pt-6 border-t border-default flex items-center gap-3">
+    <div>
+      <p class="text-sm font-semibold text-primary">{name}</p>
+      <p class="text-xs text-tertiary">{title}, {company}</p>
+    </div>
+  </footer>
+</blockquote>

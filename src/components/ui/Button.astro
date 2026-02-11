@@ -1,0 +1,45 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit';
+  class?: string;
+  [key: string]: unknown;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-[var(--duration-medium)] ease-[var(--ease-standard)] cursor-pointer focus-visible:focus-ring no-underline hover:no-underline';
+
+const sizeClasses: Record<string, string> = {
+  sm: 'h-9 px-4 text-sm',
+  md: 'h-11 px-6 text-base',
+  lg: 'h-13 px-8 text-lg',
+};
+
+const variantClasses: Record<string, string> = {
+  primary: 'bg-primary-500 text-white shadow-xs hover:bg-primary-600 hover:shadow-glow active:bg-primary-700 active:scale-[0.98] active:shadow-none disabled:bg-neutral-200 disabled:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none',
+  secondary: 'border-[1.5px] border-primary-500 text-brand bg-transparent hover:bg-primary-50 hover:border-primary-600 hover:shadow-[0_0_20px_rgba(7,121,229,0.12)] active:bg-primary-100 active:border-primary-700 disabled:border-neutral-300 disabled:text-neutral-400 disabled:bg-transparent',
+  tertiary: 'text-brand bg-transparent hover:bg-primary-50 active:bg-primary-100',
+};
+
+const classes = [baseClasses, sizeClasses[size], variantClasses[variant], className].join(' ');
+---
+
+{href ? (
+  <a href={href} class={classes} {...rest}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={classes} {...rest}>
+    <slot />
+  </button>
+)}

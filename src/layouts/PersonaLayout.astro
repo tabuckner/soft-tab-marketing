@@ -1,0 +1,189 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Hero from '../components/blocks/Hero.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import ProcessStep from '../components/blocks/ProcessStep.astro';
+import TestimonialCard from '../components/blocks/TestimonialCard.astro';
+import FAQAccordion from '../components/blocks/FAQAccordion.astro';
+import CTABlock from '../components/blocks/CTABlock.astro';
+import Button from '../components/ui/Button.astro';
+
+interface ServiceItem {
+  headline: string;
+  body: string;
+}
+
+interface Step {
+  title: string;
+  body: string;
+}
+
+interface Differentiator {
+  headline: string;
+  body: string;
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Testimonial {
+  quote: string;
+  name: string;
+  title: string;
+  company: string;
+}
+
+interface Props {
+  seo: { title: string; description: string };
+  hero: { headline: string; subheadline: string; ctaLabel: string };
+  painPoints: { headline: string; items: string[]; closingLine: string };
+  services: { headline: string; items: ServiceItem[] };
+  process: { headline: string; steps: Step[]; closingLine?: string };
+  differentiators: { headline: string; items: Differentiator[] };
+  testimonial?: Testimonial;
+  faqs?: FAQ[];
+  cta: { headline: string; subheadline: string; buttonLabel: string };
+}
+
+const {
+  seo,
+  hero,
+  painPoints,
+  services,
+  process,
+  differentiators,
+  testimonial,
+  faqs,
+  cta,
+} = Astro.props;
+---
+
+<BaseLayout title={seo.title} description={seo.description}>
+  <!-- Section 1: Hero -->
+  <Hero
+    headline={hero.headline}
+    subheadline={hero.subheadline}
+    primaryCTA={{ label: hero.ctaLabel, href: '/contact' }}
+  />
+
+  <!-- Section 2: Pain Points -->
+  <Section>
+    <Container narrow>
+      <h2 class="text-3xl md:text-4xl font-semibold text-primary mb-10">{painPoints.headline}</h2>
+      <ul class="space-y-5">
+        {painPoints.items.map((item) => (
+          <li class="flex items-start gap-4 text-secondary text-lg leading-relaxed">
+            <svg class="h-5 w-5 mt-1 shrink-0 text-primary-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+            {item}
+          </li>
+        ))}
+      </ul>
+      <p class="mt-8 text-secondary font-semibold">{painPoints.closingLine}</p>
+    </Container>
+  </Section>
+
+  <!-- Decorative divider -->
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="h-px bg-gradient-to-r from-transparent via-primary-200 to-transparent"></div>
+  </div>
+
+  <!-- Section 3: Services -->
+  <Section>
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">{services.headline}</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.items.map((item) => (
+          <div class="rounded-2xl bg-surface-card border border-default p-8 md:p-10">
+            <h3 class="text-xl font-semibold text-primary">{item.headline}</h3>
+            <p class="mt-4 text-secondary leading-relaxed">{item.body}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-12">
+        <Button href="/services" variant="tertiary">
+          See all of our services →
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Section 4: Process -->
+  <Section background="subtle">
+    <Container narrow>
+      <div class="mb-12">
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-4">Your Journey</p>
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">{process.headline}</h2>
+      </div>
+      <div>
+        {process.steps.map((step, i) => (
+          <ProcessStep
+            number={i + 1}
+            title={step.title}
+            body={step.body}
+            isLast={i === process.steps.length - 1}
+          />
+        ))}
+      </div>
+      {process.closingLine && (
+        <p class="mt-8 text-secondary font-semibold">{process.closingLine}</p>
+      )}
+    </Container>
+  </Section>
+
+  <!-- Section 5: Differentiators -->
+  <Section>
+    <Container>
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <h2 class="text-3xl md:text-4xl font-semibold text-primary">{differentiators.headline}</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+        {differentiators.items.map((item) => (
+          <div>
+            <div class="w-10 h-1 rounded-full bg-gradient-brand mb-6" aria-hidden="true"></div>
+            <h3 class="text-lg font-semibold text-primary">{item.headline}</h3>
+            <p class="mt-4 text-secondary leading-relaxed">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <!-- Section 6: Social Proof (testimonial + optional FAQ) -->
+  <Section background="subtle">
+    <Container narrow>
+      {testimonial && (
+        <div class="mb-16">
+          <TestimonialCard
+            quote={testimonial.quote}
+            name={testimonial.name}
+            title={testimonial.title}
+            company={testimonial.company}
+          />
+        </div>
+      )}
+      {faqs && faqs.length > 0 && (
+        <div>
+          <h2 class="text-3xl md:text-4xl font-semibold text-primary text-center mb-10">
+            Common questions
+          </h2>
+          <FAQAccordion items={faqs} />
+        </div>
+      )}
+    </Container>
+  </Section>
+
+  <!-- Section 7: Final CTA -->
+  <CTABlock
+    headline={cta.headline}
+    subheadline={cta.subheadline}
+    buttonLabel={cta.buttonLabel}
+    buttonHref="/contact"
+  />
+</BaseLayout>

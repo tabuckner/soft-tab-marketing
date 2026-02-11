@@ -1,0 +1,169 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import MobileNav from './MobileNav.astro';
+
+const currentPath = Astro.url.pathname;
+
+const mainLinks = [
+  { label: 'Services', href: '/services' },
+  { label: 'About', href: '/about' },
+];
+
+const personaLinks = [
+  { label: 'For Founders', href: '/for-founders' },
+  { label: 'For CTOs', href: '/for-engineering-leaders' },
+  { label: 'For AI Adoption', href: '/for-ai-adoption' },
+];
+
+function isActive(href: string): boolean {
+  return currentPath === href || currentPath === href + '/';
+}
+
+function isPersonaActive(): boolean {
+  return personaLinks.some((l) => isActive(l.href));
+}
+---
+
+<header class="sticky top-0 z-30 w-full border-b border-default bg-surface-page/80 backdrop-blur-md">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2.5 no-underline hover:no-underline" aria-label="Soft-TAB home">
+      <img src="/logo.png" alt="" width="36" height="36" class="rounded-[8px]" />
+      <span class="text-xl font-semibold tracking-tight text-primary" style="letter-spacing: -0.02em;">
+        Soft-TAB
+      </span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+      {mainLinks.map((link) => (
+        <a
+          href={link.href}
+          class:list={[
+            'flex items-center h-10 px-3 rounded-lg text-sm font-semibold transition-colors no-underline hover:no-underline',
+            isActive(link.href)
+              ? 'text-brand bg-primary-50'
+              : 'text-primary hover:text-brand hover:bg-surface-subtle',
+          ]}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >
+          {link.label}
+        </a>
+      ))}
+
+      <!-- Who We Help dropdown -->
+      <div class="relative" id="persona-dropdown">
+        <button
+          type="button"
+          class:list={[
+            'flex items-center h-10 px-3 rounded-lg text-sm font-semibold transition-colors gap-1 cursor-pointer',
+            isPersonaActive()
+              ? 'text-brand bg-primary-50'
+              : 'text-primary hover:text-brand hover:bg-surface-subtle',
+          ]}
+          aria-expanded="false"
+          aria-haspopup="true"
+          id="persona-dropdown-btn"
+        >
+          Who We Help
+          <svg class="h-4 w-4 transition-transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+        <div
+          class="absolute top-full left-0 mt-1 w-56 rounded-lg bg-surface-card border border-default shadow-md opacity-0 invisible transition-all duration-[var(--duration-medium2)] ease-[var(--ease-decelerate)]"
+          id="persona-dropdown-menu"
+          role="menu"
+        >
+          <div class="py-1">
+            {personaLinks.map((link) => (
+              <a
+                href={link.href}
+                class:list={[
+                  'block px-4 py-2.5 text-sm font-semibold transition-colors no-underline hover:no-underline',
+                  isActive(link.href)
+                    ? 'text-brand bg-primary-50'
+                    : 'text-primary hover:bg-surface-subtle hover:text-brand',
+                ]}
+                role="menuitem"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-2">
+      <ThemeToggle />
+      <a
+        href="/contact"
+        class="hidden lg:inline-flex items-center justify-center h-10 px-5 text-sm font-semibold rounded-lg bg-primary-500 text-white shadow-xs hover:bg-primary-600 hover:shadow-brand active:bg-primary-700 active:scale-[0.98] transition-all no-underline hover:no-underline focus-visible:focus-ring"
+      >
+        Contact Us
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        type="button"
+        id="mobile-nav-open"
+        aria-label="Open menu"
+        class="flex lg:hidden h-11 w-11 items-center justify-center rounded-lg text-secondary hover:bg-surface-subtle cursor-pointer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<MobileNav />
+
+<!-- Dropdown script (re-inits after view transitions) -->
+<script>
+  let dropdownCtrl: AbortController;
+
+  function initDropdown() {
+    if (dropdownCtrl) dropdownCtrl.abort();
+    dropdownCtrl = new AbortController();
+    const { signal } = dropdownCtrl;
+
+    const btn = document.getElementById('persona-dropdown-btn');
+    const menu = document.getElementById('persona-dropdown-menu');
+    if (!btn || !menu) return;
+
+    function open() {
+      btn.setAttribute('aria-expanded', 'true');
+      menu.classList.remove('opacity-0', 'invisible');
+      menu.classList.add('opacity-100', 'visible');
+    }
+    function close() {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.classList.add('opacity-0', 'invisible');
+      menu.classList.remove('opacity-100', 'visible');
+    }
+
+    btn.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      expanded ? close() : open();
+    }, { signal });
+
+    document.addEventListener('click', (e) => {
+      if (!btn.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+        close();
+      }
+    }, { signal });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    }, { signal });
+  }
+
+  document.addEventListener('astro:page-load', initDropdown);
+</script>

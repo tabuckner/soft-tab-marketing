@@ -1,0 +1,94 @@
+---
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQ[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq-accordion space-y-3">
+  {items.map((item) => (
+    <details class="group rounded-xl border border-default bg-surface-card overflow-hidden">
+      <summary class="flex cursor-pointer items-center justify-between px-6 py-4 text-primary font-semibold hover:bg-surface-subtle transition-colors list-none [&::-webkit-details-marker]:hidden">
+        <span>{item.question}</span>
+        <svg
+          class="h-5 w-5 shrink-0 text-tertiary transition-transform duration-[var(--duration-long)] ease-[var(--ease-standard)] group-open:rotate-180"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </summary>
+      <div class="faq-content overflow-hidden">
+        <div class="px-6 pb-4 text-secondary leading-relaxed">
+          <Fragment set:html={item.answer} />
+        </div>
+      </div>
+    </details>
+  ))}
+</div>
+
+<script>
+  let faqCtrl: AbortController;
+
+  function initFaqAccordion() {
+    if (faqCtrl) faqCtrl.abort();
+    faqCtrl = new AbortController();
+    const { signal } = faqCtrl;
+
+    const accordions = document.querySelectorAll('.faq-accordion details');
+    const duration = 250;
+    const easing = 'cubic-bezier(0.4, 0, 0.2, 1)';
+
+    accordions.forEach((details) => {
+      const summary = details.querySelector('summary');
+      const content = details.querySelector('.faq-content') as HTMLElement;
+      if (!summary || !content) return;
+      let animating = false;
+
+      summary.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (animating) return;
+        animating = true;
+
+        if (details.open) {
+          const startHeight = content.offsetHeight;
+          const anim = content.animate(
+            [{ height: startHeight + 'px', opacity: 1 }, { height: '0px', opacity: 0 }],
+            { duration, easing }
+          );
+          anim.onfinish = () => {
+            details.open = false;
+            content.style.height = '';
+            content.style.opacity = '';
+            animating = false;
+          };
+        } else {
+          details.open = true;
+          const endHeight = content.offsetHeight;
+          const anim = content.animate(
+            [{ height: '0px', opacity: 0 }, { height: endHeight + 'px', opacity: 1 }],
+            { duration, easing }
+          );
+          anim.onfinish = () => {
+            content.style.height = '';
+            content.style.opacity = '';
+            animating = false;
+          };
+        }
+      }, { signal });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initFaqAccordion);
+</script>

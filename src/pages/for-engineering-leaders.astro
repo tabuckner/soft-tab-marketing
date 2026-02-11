@@ -1,0 +1,91 @@
+---
+import PersonaLayout from '../layouts/PersonaLayout.astro';
+---
+
+<PersonaLayout
+  seo={{
+    title: 'For CTOs | Team Augmentation & Fractional Engineering Leadership | Soft-TAB',
+    description: "Overwhelmed CTO? Add senior engineering capacity without the hiring process. Team augmentation, fractional leadership, and rapid deployment for critical projects.",
+  }}
+  hero={{
+    headline: 'Senior engineering firepower, embedded in your team.',
+    subheadline: "When you can't hire fast enough and the roadmap won't wait, we drop in senior engineers who ship from day one.",
+    ctaLabel: "Let's Talk About Your Team",
+  }}
+  painPoints={{
+    headline: 'Sound familiar?',
+    items: [
+      'Your hiring pipeline is three months long and the board wants features yesterday.',
+      "You inherited a codebase that's held together with good intentions and not much else.",
+      'Your team is strong, but they need senior backup on a hard problem.',
+      "A critical project is off the rails and needs someone who's done this before.",
+    ],
+    closingLine: "We've been in your seat. Here's how we help.",
+  }}
+  services={{
+    headline: 'What we do for engineering teams',
+    items: [
+      {
+        headline: 'Team Augmentation',
+        body: 'Senior engineers who embed in your team, your tools, your standup. We match your workflow and ship alongside your people. No ramp-up theater.',
+      },
+      {
+        headline: 'Project Rescue',
+        body: "We enter the wasteland, assess the damage, and get things back on track. Restoring velocity, cleaning up tech debt, and rebuilding confidence in the codebase.",
+      },
+      {
+        headline: 'Architecture and Code Review',
+        body: "Fresh senior eyes on your system design. We identify risks, recommend improvements, and help your team make decisions they'll be glad about in two years.",
+      },
+      {
+        headline: 'Modernization',
+        body: 'Migrate, refactor, or rebuild legacy systems without stopping the train. We plan the transition, execute incrementally, and keep your team shipping throughout.',
+      },
+    ],
+  }}
+  process={{
+    headline: 'What working with us looks like',
+    steps: [
+      { title: 'Discovery call', body: "We learn about your stack, your team, and what's on fire. No sales pitch. Just a technical conversation." },
+      { title: 'Fit assessment', body: "We make sure we're the right match for your technology and culture. If we're not, we'll tell you." },
+      { title: 'Embed', body: 'We plug into your workflow: your repo, your Slack, your standup. Productive from day one.' },
+      { title: 'Ship', body: 'Code reviews, pull requests, production deploys. The same standard as your best engineers.' },
+      { title: 'Evolve', body: 'Scale up, wind down, or pivot the engagement as your needs change. No lock-in.' },
+    ],
+    closingLine: "We're not a body shop. We're your engineering force multiplier.",
+  }}
+  differentiators={{
+    headline: 'Why engineering leaders choose us',
+    items: [
+      {
+        headline: 'AI-augmented workflows, real output.',
+        body: 'Our engineers use AI-augmented development every day. Your team gets senior talent with the throughput to match.',
+      },
+      {
+        headline: 'No ramp-up theater.',
+        body: "We've been dropping into large codebases for years. We read the code, ask smart questions, and start contributing fast.",
+      },
+      {
+        headline: "We've rescued projects that everyone else gave up on.",
+        body: "Failed migrations, runaway tech debt, teams that lost momentum. We've seen it and turned it around.",
+      },
+    ],
+  }}
+  testimonial={{
+    quote: 'Quote from a CTO about the impact.',
+    name: 'Name',
+    title: 'Title',
+    company: 'Company',
+  }}
+  faqs={[
+    { question: 'How fast can you get started?', answer: 'For most engagements, we can begin within one to two weeks of the discovery call. For urgent situations (project rescue, critical deadlines), we can often move faster.' },
+    { question: 'How do you ramp up on our codebase?', answer: "We've been dropping into large, unfamiliar codebases for years. We read the code, review documentation, ask targeted questions, and start contributing within the first few days." },
+    { question: 'Will your engineers actually fit into our team culture?', answer: "We take culture fit seriously. That's why we include a fit assessment before every engagement. If we're not the right match, we'll say so upfront." },
+    { question: 'What if the project is already in trouble?', answer: "That's one of our specialties. We've rescued projects with runaway tech debt, missed deadlines, and teams that lost momentum. We assess the situation, create a recovery plan, and start executing." },
+  ]}
+  cta={{
+    headline: "Let's get your team unblocked.",
+    subheadline: "Every engagement starts with a free discovery call. Tell us what you're up against.",
+    buttonLabel: 'Schedule a Call',
+  }}
+/>

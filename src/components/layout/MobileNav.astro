@@ -1,0 +1,110 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { label: 'Services', href: '/services' },
+  { label: 'About', href: '/about' },
+  { label: 'For Founders', href: '/for-founders' },
+  { label: 'For CTOs', href: '/for-engineering-leaders' },
+  { label: 'For AI Adoption', href: '/for-ai-adoption' },
+  { label: 'Contact', href: '/contact' },
+];
+---
+
+<!-- Mobile nav overlay -->
+<div
+  id="mobile-nav"
+  class="fixed inset-0 z-40 hidden"
+  aria-hidden="true"
+>
+  <!-- Backdrop -->
+  <div class="absolute inset-0 bg-surface-overlay" id="mobile-nav-backdrop"></div>
+
+  <!-- Panel -->
+  <nav
+    class="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-surface-card shadow-xl flex flex-col translate-x-full transition-transform duration-[var(--duration-long)] ease-[var(--ease-decelerate)]"
+    id="mobile-nav-panel"
+    aria-label="Mobile navigation"
+  >
+    <!-- Close button -->
+    <div class="flex justify-end p-4">
+      <button
+        type="button"
+        id="mobile-nav-close"
+        aria-label="Close menu"
+        class="flex h-11 w-11 items-center justify-center rounded-lg text-secondary hover:bg-surface-subtle cursor-pointer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Links -->
+    <div class="flex flex-col gap-1 px-4">
+      {navLinks.map((link) => {
+        const isActive = currentPath === link.href || currentPath === link.href + '/';
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'flex items-center h-12 px-4 rounded-lg text-base font-semibold transition-colors',
+              isActive
+                ? 'text-brand bg-primary-50'
+                : 'text-primary hover:bg-surface-subtle',
+            ]}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </div>
+  </nav>
+</div>
+
+<script>
+  let mobileNavCtrl: AbortController;
+
+  function initMobileNav() {
+    if (mobileNavCtrl) mobileNavCtrl.abort();
+    mobileNavCtrl = new AbortController();
+    const { signal } = mobileNavCtrl;
+
+    const nav = document.getElementById('mobile-nav');
+    const panel = document.getElementById('mobile-nav-panel');
+    const backdrop = document.getElementById('mobile-nav-backdrop');
+    const closeBtn = document.getElementById('mobile-nav-close');
+    const openBtn = document.getElementById('mobile-nav-open');
+    if (!nav || !panel) return;
+
+    function openNav() {
+      nav.classList.remove('hidden');
+      nav.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        panel.classList.remove('translate-x-full');
+      });
+    }
+
+    function closeNav() {
+      panel.classList.add('translate-x-full');
+      nav.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(() => { nav.classList.add('hidden'); }, 300);
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openNav, { signal });
+    if (closeBtn) closeBtn.addEventListener('click', closeNav, { signal });
+    if (backdrop) backdrop.addEventListener('click', closeNav, { signal });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !nav.classList.contains('hidden')) {
+        closeNav();
+      }
+    }, { signal });
+  }
+
+  document.addEventListener('astro:page-load', initMobileNav);
+</script>

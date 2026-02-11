@@ -1,0 +1,86 @@
+---
+import PersonaLayout from '../layouts/PersonaLayout.astro';
+---
+
+<PersonaLayout
+  seo={{
+    title: 'For Founders | Technical Partner for Non-Technical Startup Founders | Soft-TAB',
+    description: "Non-technical founder? Get senior software engineering guidance without a full-time CTO. MVP builds, technical strategy, and hands-on development that speaks your language.",
+  }}
+  hero={{
+    headline: 'You have the vision. We\'ll build the product.',
+    subheadline: 'Soft-TAB is the engineering partner that takes founders from concept to production. Fast, right, and without the tech headaches.',
+    ctaLabel: 'Tell Us About Your Idea',
+  }}
+  painPoints={{
+    headline: 'Sound familiar?',
+    items: [
+      'You have a product idea but no engineering team to build it.',
+      "You've been burned by offshore developers or bad agency experiences.",
+      'You need someone who can own the technical build so you can focus on the business.',
+      "You're making technology decisions without a technical co-founder to gut-check them.",
+    ],
+    closingLine: "We've helped founders navigate all of this. Here's how.",
+  }}
+  services={{
+    headline: 'What we do for founders',
+    items: [
+      {
+        headline: 'MVP and Product Development',
+        body: 'Build your product from concept to launch. We handle architecture, development, and deployment so you get a working product, not a pile of code. Every build is designed for iteration, because what you learn after launch matters more than what you assume before it.',
+      },
+      {
+        headline: 'Technical Co-Pilot',
+        body: "Ongoing guidance on the decisions that shape your product's future: technology choices, vendor evaluation, hiring your first engineers, and avoiding the expensive mistakes that set startups back months.",
+      },
+      {
+        headline: 'Fractional CTO',
+        body: "Part-time technical leadership for founders who need strategic direction without a full-time executive hire. Architecture planning, team oversight, and a trusted voice in the room when it counts.",
+      },
+    ],
+  }}
+  process={{
+    headline: 'What working with us looks like',
+    steps: [
+      { title: 'Discovery call', body: 'You tell us about your product vision, your timeline, and your budget reality. We listen and ask the right questions.' },
+      { title: 'Technical scoping', body: 'We translate your vision into a concrete plan: architecture, timeline, and milestones you can hold us to.' },
+      { title: 'Build', body: 'We ship iteratively. You see progress every week, not just at the end. No black boxes.' },
+      { title: 'Launch and handoff', body: "We help you go live and set you up for what comes next, whether that's an ongoing partnership or handing off to an internal team." },
+    ],
+    closingLine: "You'll never be left in the dark.",
+  }}
+  differentiators={{
+    headline: 'Why founders choose us',
+    items: [
+      {
+        headline: 'We speak your language, not just code.',
+        body: "You won't need a translator. We explain technical decisions in terms that make sense for your business.",
+      },
+      {
+        headline: 'AI-augmented development means we deliver more, faster.',
+        body: 'Our AI-augmented workflows let a lean team produce the output of a much larger one. You get startup speed without startup sloppiness.',
+      },
+      {
+        headline: 'No layers. No runaround.',
+        body: 'You work directly with the engineers building your product. Questions get answered. Decisions get made. Things move.',
+      },
+    ],
+  }}
+  testimonial={{
+    quote: 'Quote from a founder about the experience.',
+    name: 'Name',
+    title: 'Title',
+    company: 'Company',
+  }}
+  faqs={[
+    { question: "I'm not technical. How do I know the work is good?", answer: "We explain technical decisions in plain language and tie them back to your business goals. You'll see working software every week, not just status reports." },
+    { question: 'How long does it take to build an MVP?', answer: "It depends on scope, but most MVPs take 6 to 12 weeks from kickoff to launch. We'll give you a realistic timeline during the scoping phase." },
+    { question: 'Can you help me figure out what to build?', answer: "Yes. Many founders come to us with a vision but not a technical plan. We help translate product ideas into architecture, prioritize features for an initial release, and build a roadmap that balances speed with quality." },
+    { question: 'What happens after launch?', answer: "That's up to you. We can continue as an ongoing development partner, transition the project to an internal team you hire, or step into a fractional CTO role for ongoing guidance." },
+  ]}
+  cta={{
+    headline: 'Ready to bring your idea to life?',
+    subheadline: 'Every engagement starts with a free discovery call. Tell us what you\'re building.',
+    buttonLabel: 'Schedule a Free Discovery Call',
+  }}
+/>

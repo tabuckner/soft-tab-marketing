@@ -1,0 +1,64 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  tagline?: string;
+  headline: string;
+  subheadline?: string;
+  primaryCTA?: { label: string; href: string };
+  secondaryCTA?: { label: string; href: string };
+  centered?: boolean;
+}
+
+const {
+  tagline,
+  headline,
+  subheadline,
+  primaryCTA,
+  secondaryCTA,
+  centered = true,
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden py-24 md:py-32 lg:py-40 xl:py-48 bg-gradient-surface">
+  <!-- Decorative gradient orb (top-right) -->
+  <div class="pointer-events-none absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary-500/[0.06] blur-3xl" aria-hidden="true"></div>
+  <!-- Decorative gradient orb (bottom-left) -->
+  <div class="pointer-events-none absolute -bottom-32 -left-32 h-[28rem] w-[28rem] rounded-full bg-accent-500/[0.05] blur-3xl" aria-hidden="true"></div>
+
+  <Container>
+    <div class:list={['relative max-w-3xl', centered && 'mx-auto text-center']}>
+      {tagline && (
+        <p class="text-sm font-semibold uppercase tracking-[0.2em] text-gradient-brand mb-6">
+          {tagline}
+        </p>
+      )}
+
+      <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-primary leading-[1.08] tracking-tight">
+        {headline}
+      </h1>
+
+      {subheadline && (
+        <p class="mt-8 text-lg md:text-xl text-secondary max-w-2xl leading-relaxed" class:list={[centered && 'mx-auto']}>
+          {subheadline}
+        </p>
+      )}
+
+      {(primaryCTA || secondaryCTA) && (
+        <div class="mt-10 flex flex-col sm:flex-row gap-4" class:list={[centered && 'justify-center']}>
+          {primaryCTA && (
+            <Button href={primaryCTA.href} variant="primary" size="lg">
+              {primaryCTA.label}
+            </Button>
+          )}
+          {secondaryCTA && (
+            <Button href={secondaryCTA.href} variant="secondary" size="lg">
+              {secondaryCTA.label}
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  </Container>
+</section>
