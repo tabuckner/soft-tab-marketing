@@ -67,35 +67,41 @@ const faqSchema = {
       <div class="reveal text-center max-w-2xl mx-auto mb-16">
         <h2 class="text-3xl md:text-4xl font-semibold text-primary">Our services</h2>
       </div>
-      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
-        <ServiceCard
-          icon="code"
-          headline="Custom Software Development"
-          body="We build production-grade web applications from the ground up. Whether you're launching an MVP or scaling an existing product, we handle architecture, development, and deployment. All designed to grow with you."
-          bullets={['Greenfield product builds (concept to production)', 'Full-stack web application development', 'API design and backend systems', 'Mobile-responsive web applications']}
-          whoItsFor="Founders with a product vision. Teams adding a new product line. Anyone who needs software built right the first time."
-        />
-        <ServiceCard
-          icon="users"
-          headline="Team Augmentation & Rescue"
-          body="Need senior engineering capacity without the hiring timeline? We embed directly in your team and ship from day one. We also specialize in rescuing projects that have gone off the rails."
-          bullets={['Embedded senior engineering alongside your team', 'Project rescue and codebase modernization', 'Architecture assessment and code review', 'Sprint-based delivery within your existing workflow']}
-          whoItsFor="CTOs who can't hire fast enough. Teams with a critical project that needs experienced hands."
-        />
-        <ServiceCard
-          icon="zap"
-          headline="AI & Automation"
-          body="AI is how we work every day, not a slide in our pitch deck. We help teams adopt AI-augmented development workflows, train engineers on AI coding tools, and build AI-powered features into products."
-          bullets={['AI-augmented development workflows for your team', 'Hands-on training for engineers on AI coding tools', 'Business process automation', 'AI feature development and integration']}
-          whoItsFor="Engineering leaders who know AI can help but aren't sure where to start. Product owners looking to add AI-powered features."
-        />
-        <ServiceCard
-          icon="compass"
-          headline="Advisory & Strategy"
-          body="Sometimes you don't need more hands. You need the right guidance. We provide fractional CTO advisory, architecture review, and strategic technical leadership."
-          bullets={['Fractional CTO and technical leadership', 'Architecture review and planning', 'Technology stack evaluation', 'Build-vs-buy analysis']}
-          whoItsFor="Founders who need a technical sounding board. Teams facing a critical architecture decision."
-        />
+      <div class="space-y-10 md:space-y-14" style="transition-delay: 120ms;">
+        {[
+          {
+            icon: 'code',
+            headline: 'Custom Software Development',
+            body: "We build production-grade web applications from the ground up. Whether you're launching an MVP or scaling an existing product, we handle architecture, development, and deployment. All designed to grow with you.",
+            bullets: ['Greenfield product builds (concept to production)', 'Full-stack web application development', 'API design and backend systems', 'Mobile-responsive web applications'],
+            whoItsFor: 'Founders with a product vision. Teams adding a new product line. Anyone who needs software built right the first time.',
+          },
+          {
+            icon: 'users',
+            headline: 'Team Augmentation & Rescue',
+            body: "Need senior engineering capacity without the hiring timeline? We embed directly in your team and ship from day one. We also specialize in rescuing projects that have gone off the rails.",
+            bullets: ['Embedded senior engineering alongside your team', 'Project rescue and codebase modernization', 'Architecture assessment and code review', 'Sprint-based delivery within your existing workflow'],
+            whoItsFor: "CTOs who can't hire fast enough. Teams with a critical project that needs experienced hands.",
+          },
+          {
+            icon: 'zap',
+            headline: 'AI & Automation',
+            body: "AI is how we work every day, not a slide in our pitch deck. We help teams adopt AI-augmented development workflows, train engineers on AI coding tools, and build AI-powered features into products.",
+            bullets: ['AI-augmented development workflows for your team', 'Hands-on training for engineers on AI coding tools', 'Business process automation', 'AI feature development and integration'],
+            whoItsFor: "Engineering leaders who know AI can help but aren't sure where to start. Product owners looking to add AI-powered features.",
+          },
+          {
+            icon: 'compass',
+            headline: 'Advisory & Strategy',
+            body: "Sometimes you don't need more hands. You need the right guidance. We provide fractional CTO advisory, architecture review, and strategic technical leadership.",
+            bullets: ['Fractional CTO and technical leadership', 'Architecture review and planning', 'Technology stack evaluation', 'Build-vs-buy analysis'],
+            whoItsFor: 'Founders who need a technical sounding board. Teams facing a critical architecture decision.',
+          },
+        ].map((s, i) => (
+          <div class:list={['md:max-w-[65%]', i % 2 === 0 ? 'reveal-left md:mr-auto' : 'reveal-right md:ml-auto']}>
+            <ServiceCard icon={s.icon} headline={s.headline} body={s.body} bullets={s.bullets} whoItsFor={s.whoItsFor} />
+          </div>
+        ))}
       </div>
     </Container>
   </Section>
@@ -110,13 +116,15 @@ const faqSchema = {
           We don't force-fit your needs into our billing model. Pick the structure that works for you, or let us recommend one.
         </p>
       </div>
-      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
-        {engagementModels.map((model) => (
-          <div class="group relative rounded-lg p-px border border-default card-border-draw">
-            <div class="relative rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
-              <div class="w-10 h-1 rounded-full bg-gradient-brand mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-[var(--duration-medium)]" aria-hidden="true"></div>
-              <h3 class="text-xl font-semibold text-primary">{model.headline}</h3>
-              <p class="mt-4 text-secondary leading-relaxed">{model.body}</p>
+      <div class="space-y-10 md:space-y-14" style="transition-delay: 120ms;">
+        {engagementModels.map((model, i) => (
+          <div class:list={['md:max-w-[65%]', i % 2 === 0 ? 'reveal-left md:mr-auto' : 'reveal-right md:ml-auto']}>
+            <div class="group relative rounded-lg p-px border border-default card-border-draw">
+              <div class="relative rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
+                <div class="w-10 h-1 rounded-full bg-gradient-brand mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-[var(--duration-medium)]" aria-hidden="true"></div>
+                <h3 class="text-xl font-semibold text-primary">{model.headline}</h3>
+                <p class="mt-4 text-secondary leading-relaxed">{model.body}</p>
+              </div>
             </div>
           </div>
         ))}

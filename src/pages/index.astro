@@ -39,25 +39,31 @@ import HeroGraphic from '../components/blocks/HeroGraphic.astro';
           We work with leaders who need to move fast.
         </h2>
       </div>
-      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-8" style="transition-delay: 120ms;">
-        <PersonaCard
-          headline="Building something new?"
-          body="You have the vision. We'll build the product. From concept to launch, we're the technical partner that speaks your language, not just code."
-          ctaLabel="How we help founders"
-          href="/for-founders"
-        />
-        <PersonaCard
-          headline="Need senior engineering firepower?"
-          body="Embedded talent that ships from day one. When your team is maxed out and the roadmap won't wait, we drop in and deliver."
-          ctaLabel="How we help CTOs"
-          href="/for-engineering-leaders"
-        />
-        <PersonaCard
-          headline="Ready to put AI to work?"
-          body="No hype. Real productivity gains. We help your team adopt AI-augmented development workflows that actually move the needle."
-          ctaLabel="How we help with AI"
-          href="/for-ai-adoption"
-        />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal h-full" style="transition-delay: 100ms;">
+          <PersonaCard
+            headline="Building something new?"
+            body="You have the vision. We'll build the product. From concept to launch, we're the technical partner that speaks your language, not just code."
+            ctaLabel="How we help founders"
+            href="/for-founders"
+          />
+        </div>
+        <div class="reveal h-full" style="transition-delay: 250ms;">
+          <PersonaCard
+            headline="Need senior engineering firepower?"
+            body="Embedded talent that ships from day one. When your team is maxed out and the roadmap won't wait, we drop in and deliver."
+            ctaLabel="How we help CTOs"
+            href="/for-engineering-leaders"
+          />
+        </div>
+        <div class="reveal h-full" style="transition-delay: 400ms;">
+          <PersonaCard
+            headline="Ready to put AI to work?"
+            body="No hype. Real productivity gains. We help your team adopt AI-augmented development workflows that actually move the needle."
+            ctaLabel="How we help with AI"
+            href="/for-ai-adoption"
+          />
+        </div>
       </div>
     </Container>
   </Section>
@@ -71,27 +77,17 @@ import HeroGraphic from '../components/blocks/HeroGraphic.astro';
           From greenfield builds to project rescues, we structure every engagement around what you actually need.
         </p>
       </div>
-      <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-8" style="transition-delay: 120ms;">
-        <ServiceCard
-          icon="code"
-          headline="Custom Software Development"
-          body="Full-stack product development from architecture to production. We build web applications, APIs, and backend systems designed to scale from day one."
-        />
-        <ServiceCard
-          icon="users"
-          headline="Team Augmentation & Rescue"
-          body="Senior engineers who embed in your team, your tools, your standup. Plus a proven track record rescuing projects that have gone sideways."
-        />
-        <ServiceCard
-          icon="zap"
-          headline="AI & Automation"
-          body="AI-augmented development workflows, team training on AI coding tools, and AI feature development. Practical productivity gains, not buzzword bingo."
-        />
-        <ServiceCard
-          icon="compass"
-          headline="Advisory & Strategy"
-          body="Fractional CTO leadership, architecture review, technology stack evaluation, and build-vs-buy analysis. Strategic guidance from engineers who've been in your seat."
-        />
+      <div class="space-y-10 md:space-y-14">
+        {[
+          { icon: 'code', headline: 'Custom Software Development', body: 'Full-stack product development from architecture to production. We build web applications, APIs, and backend systems designed to scale from day one.' },
+          { icon: 'users', headline: 'Team Augmentation & Rescue', body: 'Senior engineers who embed in your team, your tools, your standup. Plus a proven track record rescuing projects that have gone sideways.' },
+          { icon: 'zap', headline: 'AI & Automation', body: 'AI-augmented development workflows, team training on AI coding tools, and AI feature development. Practical productivity gains, not buzzword bingo.' },
+          { icon: 'compass', headline: 'Advisory & Strategy', body: 'Fractional CTO leadership, architecture review, technology stack evaluation, and build-vs-buy analysis. Strategic guidance from engineers who\'ve been in your seat.' },
+        ].map((s, i) => (
+          <div class:list={['md:max-w-[65%]', i % 2 === 0 ? 'reveal-left md:mr-auto' : 'reveal-right md:ml-auto']}>
+            <ServiceCard icon={s.icon} headline={s.headline} body={s.body} />
+          </div>
+        ))}
       </div>
       <div class="text-center mt-12">
         <Button href="/services" variant="tertiary">
@@ -110,19 +106,25 @@ import HeroGraphic from '../components/blocks/HeroGraphic.astro';
           Why teams choose us
         </h2>
       </div>
-      <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16" style="transition-delay: 120ms;">
-        <DifferentiatorBlock
-          headline="AI is how we work, not what we sell."
-          body="Every engagement benefits from AI-augmented development workflows. We ship in weeks what traditionally takes months, without cutting corners on quality. AI handles the routine. Our senior engineers make the decisions that matter."
-        />
-        <DifferentiatorBlock
-          headline="You work with the decision-maker."
-          body="No account managers. No junior developers learning on your dime. Every engagement is led by experienced engineers who think architecturally and own the outcome."
-        />
-        <DifferentiatorBlock
-          headline="We thrive where others have failed."
-          body="Some projects go sideways. Codebases become unmaintainable. Timelines slip. We have a track record of entering project wastelands and restoring velocity, cleaning up tech debt, and getting teams shipping again."
-        />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="reveal h-full" style="transition-delay: 100ms;">
+          <DifferentiatorBlock
+            headline="AI is how we work, not what we sell."
+            body="Every engagement benefits from AI-augmented development workflows. We ship in weeks what traditionally takes months, without cutting corners on quality. AI handles the routine. Our senior engineers make the decisions that matter."
+          />
+        </div>
+        <div class="reveal h-full" style="transition-delay: 250ms;">
+          <DifferentiatorBlock
+            headline="You work with the decision-maker."
+            body="No account managers. No junior developers learning on your dime. Every engagement is led by experienced engineers who think architecturally and own the outcome."
+          />
+        </div>
+        <div class="reveal h-full" style="transition-delay: 400ms;">
+          <DifferentiatorBlock
+            headline="We thrive where others have failed."
+            body="Some projects go sideways. Codebases become unmaintainable. Timelines slip. We have a track record of entering project wastelands and restoring velocity, cleaning up tech debt, and getting teams shipping again."
+          />
+        </div>
       </div>
     </Container>
   </Section>

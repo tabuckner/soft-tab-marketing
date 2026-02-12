@@ -139,7 +139,7 @@ const organizationSchema = {
           });
         }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
 
-        document.querySelectorAll('.reveal:not(.revealed)').forEach((el) => {
+        document.querySelectorAll('.reveal:not(.revealed), .reveal-left:not(.revealed), .reveal-right:not(.revealed), .process-step:not(.revealed)').forEach((el) => {
           observer.observe(el);
         });
       }

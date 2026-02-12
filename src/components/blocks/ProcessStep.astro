@@ -7,21 +7,33 @@ interface Props {
 }
 
 const { number, title, body, isLast = false } = Astro.props;
+
+// Stagger each step's entrance by its position
+const baseDelay = (number - 1) * 300;
 ---
 
-<div class="reveal relative flex gap-6" style={`transition-delay: ${(number - 1) * 120}ms;`}>
+<div class="process-step relative flex gap-6" data-step-delay={baseDelay}>
   <!-- Step indicator + connector -->
   <div class="flex flex-col items-center">
-    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-brand text-white font-semibold text-sm shadow-xs">
+    <div
+      class="step-number flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-brand text-white font-semibold text-sm shadow-xs"
+      style={`transition-delay: ${baseDelay}ms;`}
+    >
       {number}
     </div>
     {!isLast && (
-      <div class="w-px flex-1 bg-gradient-to-b from-primary-400 to-accent-400 mt-3 mb-3 opacity-30"></div>
+      <div
+        class="step-line w-px flex-1 bg-gradient-to-b from-primary-400 to-accent-400 mt-3 mb-3 opacity-30"
+        style={`transition-delay: ${baseDelay + 200}ms;`}
+      ></div>
     )}
   </div>
 
   <!-- Content -->
-  <div class:list={['pb-10', isLast && 'pb-0']}>
+  <div
+    class:list={['step-content pb-10', isLast && 'pb-0']}
+    style={`transition-delay: ${baseDelay + 150}ms;`}
+  >
     <h3 class="text-lg font-semibold text-primary mt-2">{title}</h3>
     <p class="mt-2 text-secondary leading-relaxed">{body}</p>
   </div>
