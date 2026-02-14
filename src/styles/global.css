@@ -250,18 +250,24 @@
 /* Directional reveal variants for alternating layouts */
 @utility reveal-left {
   opacity: 0;
-  transform: translate(-32px, 16px);
+  transform: translateY(16px);
   transition:
     opacity 0.6s cubic-bezier(0, 0, 0.2, 1),
     transform 0.6s cubic-bezier(0, 0, 0.2, 1);
+  @media (min-width: 768px) {
+    transform: translate(-32px, 16px);
+  }
 }
 
 @utility reveal-right {
   opacity: 0;
-  transform: translate(32px, 16px);
+  transform: translateY(16px);
   transition:
     opacity 0.6s cubic-bezier(0, 0, 0.2, 1),
     transform 0.6s cubic-bezier(0, 0, 0.2, 1);
+  @media (min-width: 768px) {
+    transform: translate(32px, 16px);
+  }
 }
 
 /* Revealed state (toggled by Intersection Observer) */
