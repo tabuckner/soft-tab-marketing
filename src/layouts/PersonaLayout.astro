@@ -115,7 +115,7 @@ const faqSchema = faqs && faqs.length > 0
           {services.items.map((item, i) => (
             <div class="reveal" style={`transition-delay: ${100 + i * 150}ms;`}>
               <div class="group relative rounded-lg p-px border border-default card-border-draw h-full">
-                <div class="relative rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
+                <div class="relative z-10 rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
                   <h3 class="text-xl font-semibold text-primary">{item.headline}</h3>
                   <p class="mt-4 text-secondary leading-relaxed">{item.body}</p>
                 </div>
@@ -128,7 +128,7 @@ const faqSchema = faqs && faqs.length > 0
           {services.items.map((item, i) => (
             <div class:list={['md:max-w-[65%]', i % 2 === 0 ? 'reveal-left md:mr-auto' : 'reveal-right md:ml-auto']}>
               <div class="group relative rounded-lg p-px border border-default card-border-draw">
-                <div class="relative rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
+                <div class="relative z-10 rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
                   <h3 class="text-xl font-semibold text-primary">{item.headline}</h3>
                   <p class="mt-4 text-secondary leading-relaxed">{item.body}</p>
                 </div>
@@ -178,7 +178,7 @@ const faqSchema = faqs && faqs.length > 0
         {differentiators.items.map((item, i) => (
           <div class="reveal" style={`transition-delay: ${100 + i * 150}ms;`}>
             <div class="group relative rounded-lg p-px border border-default card-border-draw h-full">
-              <div class="relative rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
+              <div class="relative z-10 rounded-[calc(0.5rem-1px)] bg-surface-card p-8 md:p-10 h-full group-hover:shadow-[0_0_24px_rgba(7,121,229,0.08)] transition-shadow duration-[var(--duration-medium)]">
                 <div class="w-10 h-1 rounded-full bg-gradient-brand mb-6 opacity-60 group-hover:opacity-100 transition-opacity duration-[var(--duration-medium)]" aria-hidden="true"></div>
                 <h3 class="text-lg font-semibold text-primary">{item.headline}</h3>
                 <p class="mt-4 text-secondary leading-relaxed">{item.body}</p>
