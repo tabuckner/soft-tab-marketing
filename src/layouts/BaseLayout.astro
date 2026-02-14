@@ -53,7 +53,7 @@ const organizationSchema = {
   '@type': 'ProfessionalService',
   name: 'Soft-TAB',
   url: siteUrl,
-  logo: `${siteUrl}/favicon.svg`,
+  logo: `${siteUrl}/logo.png`,
   description: 'AI-augmented software development consultancy providing fractional engineering, custom software development, and CTO advisory services.',
   founder: { '@type': 'Person', name: 'Taylor Buckner' },
   areaServed: 'US',
@@ -93,8 +93,12 @@ const organizationSchema = {
     <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0779E5" />
 
     <!-- Preload self-hosted Inter font -->
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
