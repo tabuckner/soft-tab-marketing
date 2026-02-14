@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+---
+
+<BaseLayout title="Page Not Found | Soft-TAB" description="The page you're looking for doesn't exist or has been moved.">
+  <Section>
+    <Container narrow>
+      <div class="text-center py-16 md:py-24">
+        <p class="text-7xl md:text-9xl font-semibold text-gradient-brand mb-6">404</p>
+        <h1 class="text-3xl md:text-4xl font-semibold text-primary mb-4">Page not found</h1>
+        <p class="text-lg text-secondary mb-10 max-w-md mx-auto">
+          The page you're looking for doesn't exist or has been moved. Let's get you back on track.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button href="/" variant="primary" size="lg">
+            Back to Home
+          </Button>
+          <Button href="/contact" variant="secondary" size="lg">
+            Get in Touch
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
