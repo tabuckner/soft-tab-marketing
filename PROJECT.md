@@ -209,9 +209,10 @@ These are explicitly deferred to post-launch iterations:
 - [x] SEO: XML sitemap ✅ → `@astrojs/sitemap` integration
 - [x] SEO: Schema.org structured data ✅ → Organization, Service, FAQ, BreadcrumbList (JSON-LD)
 - [x] SEO: OG default image ✅ → `public/og-default.png` (1200×630 branded image for social sharing)
-- [ ] Performance optimization (target Lighthouse > 90)
-- [ ] Set up GA4 (free) for basic analytics
-- [ ] Contact form backend solution (Formspree free tier)
+- [x] Performance optimization (Lighthouse > 90) ✅ → All 7 pages score 99-100 across all categories
+- [x] Set up GA4 (free) for basic analytics ✅ → Measurement ID G-11B3WEL5RN in BaseLayout
+- [x] Contact form backend (Formspree free tier) ✅ → fetch-based submission, branded success/error states
+- [x] Calendly booking link wired up ✅ → `https://calendly.com/taylor-soft-tab/30min`
 
 **Exit Criteria**: All pages built, responsive, Lighthouse > 90, form working.
 
@@ -226,6 +227,7 @@ These are explicitly deferred to post-launch iterations:
 - [ ] Verify analytics tracking
 - [ ] Submit sitemap to Google Search Console
 - [ ] Plan DNS cutover (document rollback plan)
+- [ ] Add day-job unavailability blocks to Calendly (manually input recurring work hours to prevent conflicts)
 
 **Exit Criteria**: Site accessible at `soft-tab.com`, all tests pass, analytics verified.
 

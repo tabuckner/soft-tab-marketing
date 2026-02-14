@@ -27,10 +27,11 @@ function isPersonaActive(): boolean {
 <header class="sticky top-0 z-30 w-full border-b border-default bg-surface-page/80 backdrop-blur-md">
   <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2.5 no-underline hover:no-underline" aria-label="Soft-TAB home">
-      <img src="/logo.png" alt="" width="36" height="36" class="rounded-[8px]" />
-      <span class="text-xl font-semibold tracking-tight text-primary" style="letter-spacing: -0.02em;">
+    <a href="/" class="group flex items-center gap-2.5 no-underline hover:no-underline" aria-label="Soft-TAB home">
+      <img src="/logo.png" alt="" width="36" height="36" class="rounded-[8px] transition-all duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:shadow-[0_0_16px_rgba(7,121,229,0.35)] group-hover:scale-105" />
+      <span class="relative text-xl font-semibold tracking-tight text-primary transition-colors duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:text-brand" style="letter-spacing: -0.02em;">
         Soft-TAB
+        <span class="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-brand scale-x-0 origin-left transition-transform duration-[var(--duration-long)] ease-[var(--ease-decelerate)] group-hover:scale-x-100" aria-hidden="true"></span>
       </span>
     </a>
 
@@ -101,7 +102,7 @@ function isPersonaActive(): boolean {
       <ThemeToggle />
       <a
         href="/contact"
-        class="hidden lg:inline-flex items-center justify-center h-10 px-5 text-sm font-semibold rounded-lg bg-primary-500 text-white shadow-xs hover:bg-primary-600 hover:shadow-brand active:bg-primary-700 active:scale-[0.98] transition-all no-underline hover:no-underline focus-visible:focus-ring"
+        class="hidden lg:inline-flex items-center justify-center h-10 px-5 text-sm font-semibold rounded-lg bg-primary-600 text-white shadow-xs hover:bg-primary-700 hover:shadow-brand active:bg-primary-800 active:scale-[0.98] transition-all no-underline hover:no-underline focus-visible:focus-ring"
       >
         Contact Us
       </a>
