@@ -3,82 +3,141 @@ interface Props {
   formAction?: string;
 }
 
-const { formAction = 'https://formspree.io/f/PLACEHOLDER' } = Astro.props;
+const { formAction = 'https://formspree.io/f/xpqjdplp' } = Astro.props;
 ---
 
-<form action={formAction} method="POST" class="space-y-5">
-  <!-- Name -->
-  <div>
-    <label for="name" class="block text-sm text-secondary mb-1.5">Name <span class="text-error-500">*</span></label>
-    <input
-      type="text"
-      id="name"
-      name="name"
-      required
-      placeholder="Your name"
-      class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all"
-    />
-  </div>
+<div>
+  <form id="contact-form" action={formAction} method="POST" class="space-y-5">
+    <!-- Name -->
+    <div>
+      <label for="name" class="block text-sm text-secondary mb-1.5">Name <span class="text-error-500">*</span></label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        required
+        placeholder="Your name"
+        class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all"
+      />
+    </div>
 
-  <!-- Email -->
-  <div>
-    <label for="email" class="block text-sm text-secondary mb-1.5">Email <span class="text-error-500">*</span></label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      required
-      placeholder="you@company.com"
-      class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all"
-    />
-  </div>
+    <!-- Email -->
+    <div>
+      <label for="email" class="block text-sm text-secondary mb-1.5">Email <span class="text-error-500">*</span></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="you@company.com"
+        class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all"
+      />
+    </div>
 
-  <!-- Company -->
-  <div>
-    <label for="company" class="block text-sm text-secondary mb-1.5">Company</label>
-    <input
-      type="text"
-      id="company"
-      name="company"
-      placeholder="Company name (optional)"
-      class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all"
-    />
-  </div>
+    <!-- Company -->
+    <div>
+      <label for="company" class="block text-sm text-secondary mb-1.5">Company</label>
+      <input
+        type="text"
+        id="company"
+        name="company"
+        placeholder="Company name (optional)"
+        class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all"
+      />
+    </div>
 
-  <!-- Project description -->
-  <div>
-    <label for="message" class="block text-sm text-secondary mb-1.5">Tell us about your project <span class="text-error-500">*</span></label>
-    <textarea
-      id="message"
-      name="message"
-      required
-      rows="5"
-      placeholder="What are you building? What's the challenge? What does success look like?"
-      class="w-full px-4 py-3 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all resize-y"
-    ></textarea>
-  </div>
+    <!-- Project description -->
+    <div>
+      <label for="message" class="block text-sm text-secondary mb-1.5">Tell us about your project <span class="text-error-500">*</span></label>
+      <textarea
+        id="message"
+        name="message"
+        required
+        rows="5"
+        placeholder="What are you building? What's the challenge? What does success look like?"
+        class="w-full px-4 py-3 rounded-lg border border-default bg-surface-card text-primary placeholder:text-muted focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all resize-y"
+      ></textarea>
+    </div>
 
-  <!-- How did you hear -->
-  <div>
-    <label for="referral" class="block text-sm text-secondary mb-1.5">How did you hear about us?</label>
-    <select
-      id="referral"
-      name="referral"
-      class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all appearance-none cursor-pointer"
+    <!-- How did you hear -->
+    <div>
+      <label for="referral" class="block text-sm text-secondary mb-1.5">How did you hear about us?</label>
+      <select
+        id="referral"
+        name="referral"
+        class="w-full h-11 px-4 rounded-lg border border-default bg-surface-card text-primary focus:border-primary-500 focus:shadow-sm focus:outline-none transition-all appearance-none cursor-pointer"
+      >
+        <option value="">Select one (optional)</option>
+        <option value="referral">Referral</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="google">Google Search</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <!-- Submit -->
+    <button
+      type="submit"
+      id="contact-submit"
+      class="inline-flex items-center justify-center h-11 px-6 text-base font-semibold rounded-lg bg-primary-500 text-white shadow-xs hover:bg-primary-600 hover:shadow-brand active:bg-primary-700 active:scale-[0.98] transition-all focus-visible:focus-ring cursor-pointer w-full sm:w-auto"
     >
-      <option value="">Select one (optional)</option>
-      <option value="referral">Referral</option>
-      <option value="linkedin">LinkedIn</option>
-      <option value="google">Google Search</option>
-      <option value="other">Other</option>
-    </select>
+      Start the Conversation
+    </button>
+  </form>
+
+  <!-- Success message (hidden by default) -->
+  <div id="contact-success" class="hidden rounded-lg border border-default bg-surface-card p-8 text-center">
+    <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gradient-brand mb-4">
+      <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+    <h3 class="text-xl font-semibold text-primary mb-2">Message sent.</h3>
+    <p class="text-secondary">We'll get back to you within one business day.</p>
   </div>
 
-  <!-- Submit -->
-  <button
-    type="submit"
-    class="inline-flex items-center justify-center h-11 px-6 text-base font-semibold rounded-lg bg-primary-500 text-white shadow-xs hover:bg-primary-600 hover:shadow-brand active:bg-primary-700 active:scale-[0.98] transition-all focus-visible:focus-ring cursor-pointer w-full sm:w-auto"
-  >
-    Start the Conversation
-  </button>
-</form>
+  <!-- Error message (hidden by default) -->
+  <div id="contact-error" class="hidden rounded-lg border border-default bg-surface-card p-6 text-center">
+    <p class="text-sm font-semibold text-primary">Something went wrong. Please try again or email us directly.</p>
+  </div>
+</div>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const success = document.getElementById('contact-success');
+    const error = document.getElementById('contact-error');
+    const submit = document.getElementById('contact-submit');
+    if (!form || !success || !error || !submit) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      error.classList.add('hidden');
+      submit.setAttribute('disabled', '');
+      submit.textContent = 'Sending...';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+
+        if (res.ok) {
+          form.classList.add('hidden');
+          success.classList.remove('hidden');
+          form.reset();
+        } else {
+          throw new Error('Submit failed');
+        }
+      } catch {
+        error.classList.remove('hidden');
+        submit.removeAttribute('disabled');
+        submit.textContent = 'Start the Conversation';
+      }
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>
